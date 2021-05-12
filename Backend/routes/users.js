@@ -1,9 +1,16 @@
 var express = require("express");
 var router = express.Router();
+const admin = require("firebase-admin");
+const serviceAccount = require("../serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
-/* GET users listing. */
-router.get("/", (req, res, next) => {
-  res.send("respond with a resource");
+/* post login users. */
+router.post("/sessionLogin", async (req, res) => {
+  const idToken = req.body.idToken
+  const verify = await admin.auth().verifyIdToken(idToken)
+  res.send({msg: "Logged in successfully", verify});
 });
 
 module.exports = router;
