@@ -31,6 +31,4 @@ function App() {
       <ContextApp />
     </AuthProvider>
   );
-}
-
 export default App;
