@@ -14,3 +14,11 @@ router.post("/sessionLogin", async (req, res) => {
 });
 
 module.exports = router;
+
+router.post("/sessionSignUp", async (req, res) => {
+  // const idToken = req.body.idToken
+  // const verify = await admin.auth().verifyIdToken(idToken)
+  res.send({msg: "Signed up successfully"});
+});
+
+module.exports = router;

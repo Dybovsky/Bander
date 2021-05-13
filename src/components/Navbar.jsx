@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
-import { signInGoogle, signInEmail } from "../firebase/firebase.auth";
+import { signInGoogle, signInEmail,SignUp } from "../firebase/firebase.auth";
 import fireInit from "../firebase/firebase.config"; // need it to initialize firebase so the google authenctication will work
+import firebase from 'firebase/app'
+import Modal_sign from './modal_sign_up'
+import Modal_login from './modal_login'
+import React, { useState } from "react"
 
 const Navbar = () => {
   const auth = useAuth();
+  const [showS, signUpShow] = useState(false)
+  const [showL, loginShow] = useState(false)
+  
   const openModal = (e) => {
     // signInEmail(email,password) insert modal here if possible that will ask for the email and password and then call this function
     console.log(e.target);
@@ -39,13 +46,16 @@ const Navbar = () => {
       )}
       <nav>
         {!auth.token && (
+          <>
           <Link
-            onClick={openModal}
+            onClick={loginShow}
             className="btn btn-outline-light m-3"
             to="/"
           >
             Log In Mail
           </Link>
+           <Modal_login show={showL} onClose={() => loginShow(false)} />
+           </>
         )}
         {!auth.token && (
           <Link
@@ -56,6 +66,30 @@ const Navbar = () => {
             Log In Google
           </Link>
         )}
+        {!auth.token && (
+          <>
+          <Link
+            onClick={() => signUpShow(true)}
+            className="btn btn-outline-light m-3"
+            to="/"
+          >
+            Sign Up
+          </Link>
+           <Modal_sign show={showS} onClose={() => signUpShow(false)} />
+           </>
+        )}
+        {auth.token && (
+          <Link
+            onClick={()=>{
+              fireInit.auth().signOut().then(() => {
+                  alert("Signed out successfully")
+                })}}
+            className="btn btn-outline-light m-3"
+            to="/"
+          >
+            Sign Out
+          </Link>
+        )}          
       </nav>
     </div>
   );

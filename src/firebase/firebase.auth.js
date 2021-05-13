@@ -19,3 +19,13 @@ export async function signInGoogle() {
   console.log(verify.data)
   return { userInfo, idToken };
 }
+
+export async function SignUp (email, password) {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            console.log(userCredential)
+          })
+          .catch((error) => {
+              alert(error.message)
+          });
+  }
