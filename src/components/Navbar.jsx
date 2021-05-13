@@ -16,25 +16,27 @@ const Navbar = () => {
       <Link className="btn btn-outline-light m-3" to="/profile/home">
         Home
       </Link>
-      {auth.token && (
+      <nav>
+        {/* {auth.token && ( */}
         <Link className="btn btn-outline-light m-3" to="/artist_profile">
           Profile
         </Link>
-      )}
-      {auth.token && (
-        <Link
-          className="btn btn-outline-light m-3"
-          to="/"
-          onClick={auth.logOut}
-        >
-          Log Out
-        </Link>
-      )}
-      {!auth.token && (
-        <Link className="btn btn-outline-light m-3" to="/">
-          Log In
-        </Link>
-      )}
+        {/* )} */}
+        {auth.token && (
+          <Link
+            className="btn btn-outline-light m-3"
+            to="/"
+            onClick={auth.logOut}
+          >
+            Log Out
+          </Link>
+        )}
+        {!auth.token && (
+          <Link className="btn btn-outline-light m-3" to="/">
+            Log In
+          </Link>
+        )}
+      </nav>
     </div>
   );
 };
