@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
-import SignUpModal from "./SignUpModal";
 
+import { signInGoogle, signInEmail,SignUp } from "../firebase/firebase.auth";
+import fireInit from "../firebase/firebase.config"; // need it to initialize firebase so the google authenctication will work
+import firebase from 'firebase/app'
+import React, { useState } from "react"
 
 const Navbar = () => {
   const auth = useAuth();
+
+import SignUpModal from "./SignUpModal";
+
   return (
     <>
       <div
