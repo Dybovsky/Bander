@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
-
-import { signInGoogle, signInEmail,SignUp } from "../firebase/firebase.auth";
+import SignInEmailModal from "./SignInEmailModal";
+import { signInGoogle, SignUp } from "../firebase/firebase.auth"; // Call this when you want to send the signup Data to the server
 import fireInit from "../firebase/firebase.config"; // need it to initialize firebase so the google authenctication will work
-import firebase from 'firebase/app'
-import React, { useState } from "react"
+import SignUpModal from "./SignUpModal";
+import React, { useState } from "react";
 
 const Navbar = () => {
   const auth = useAuth();
-
-import SignUpModal from "./SignUpModal";
 
   return (
     <>
@@ -41,9 +39,14 @@ import SignUpModal from "./SignUpModal";
               Log Out
             </Link>
           )}
+          {!auth.token && <SignInEmailModal />}
           {!auth.token && (
-            <Link className="btn btn-outline-light m-3" to="/">
-              Log In
+            <Link
+              onClick={signInGoogle}
+              className="btn btn-outline-light m-3"
+              to="/"
+            >
+              Sign in Google
             </Link>
           )}
         </div>

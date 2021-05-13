@@ -1,13 +1,15 @@
 import axios from "axios";
 import firebase from "firebase";
 const baseURL = "http://localhost:5050";
+const db = firebase.firestore()
 
 export async function signInEmail(email, password) {
-  const userAuth = await firebase
+  const user = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password);
-  console.log(userAuth.user.getIdToken());
   firebase.auth().signOut();
+  const userSignin = db.collection("users").get(user.user.uid)
+  return user.user;
 }
 
 export async function signInGoogle() {
@@ -16,16 +18,14 @@ export async function signInGoogle() {
   const idToken = (await userInfo.user.getIdToken()).toString();
   const verify = await axios.post(baseURL + "/users/sessionLogin", { idToken });
   firebase.auth().signOut();
-  console.log(verify.data)
+  console.log(verify.data);
   return { userInfo, idToken };
 }
 
-export async function SignUp (email, password) {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            console.log(userCredential)
-          })
-          .catch((error) => {
-              alert(error.message)
-          });
-  }
+export async function SignUp(payload) {
+  console.log(payload);
+  const createUser = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(payload.email, payload.password);
+  console.log(createUser);
+}
