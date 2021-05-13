@@ -12,6 +12,7 @@ import { mocArtist } from "../mocData/mocUsers";
 //   type: "artist",
 //   instrument: ["guitar", "vocal"],
 //   genre: ["raggie", "rasta"],
+
 // };
 
 const artist = mocArtist;
