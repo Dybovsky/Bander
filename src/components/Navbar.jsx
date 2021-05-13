@@ -3,6 +3,7 @@ import { useAuth } from "../context/auth";
 
 const Navbar = () => {
   const auth = useAuth();
+
   return (
     <div
       className="d-flex flex-sm-nowrap pt-2 mx-auto shadow rounded align-items-center justify-content-between mt-2 fixed-top"
@@ -18,7 +19,10 @@ const Navbar = () => {
       </Link>
       <nav>
         {/* {auth.token && ( */}
-        <Link className="btn btn-outline-light m-3" to="/artist_profile">
+        <Link
+          className="btn btn-outline-light m-3"
+          to={auth.user.type === "artist" ? "/artist_profile" : "/bar_profile"}
+        >
           Profile
         </Link>
         {/* )} */}

@@ -11,4 +11,15 @@ const mocArtist = {
   passwordCheck: "123", //hash
 };
 
-export { mocArtist };
+const mocBar = {
+  image: "/TGIF.jpeg",
+  company: "TGI Friday's",
+  email: "tgi@f.com",
+  type: "bar",
+  address: "مصطفى طلعت درب السماكين،",
+  cuisine: ["american", "burgers", "cocktails"],
+  password: "123", //hash
+  passwordCheck: "123", //hash
+};
+
+export { mocArtist, mocBar };
