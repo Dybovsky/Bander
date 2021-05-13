@@ -32,9 +32,8 @@ export default function SignUpForm() {
     setUserBaseInfo(copy);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
     for (let name in userBaseInfo) {
       if (userBaseInfo[name] === null) {
         setNotFilled(true);
