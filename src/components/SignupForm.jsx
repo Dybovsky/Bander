@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { Button, Card} from "semantic-ui-react";
+import { Button, Card } from "semantic-ui-react";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 
 export default function SignUpForm() {
   const [userType, setUserType] = useState({ bar: null, artist: null });
-  const [userBaseInfo, setUserBaseInfo] = useState({fName: null, password: null, lastName: null, email: null , bio: null, cellPhone: null});
+  const [userBaseInfo, setUserBaseInfo] = useState({
+    fName: null,
+    password: null,
+    lastName: null,
+    email: null,
+    bio: null,
+    cellPhone: null,
+  });
   const [notFilled, setNotFilled] = useState(false);
+  const [venue, setvenue] = useState({});
+  const [artist, setartist] = useState({});
 
   const handleChecks = (e) => {
     const checked = e.target.checked;
@@ -32,6 +41,11 @@ export default function SignUpForm() {
     setUserBaseInfo(copy);
   };
 
+  useEffect(() => {
+    console.log(artist);
+    console.log(venue);
+  }, [artist, venue]);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     for (let name in userBaseInfo) {
@@ -43,19 +57,22 @@ export default function SignUpForm() {
         // Send the objs to DB
       }
     }
+    userBaseInfo.artinfo = artist;
+    userBaseInfo.venue = venue;
+    console.log(userBaseInfo);
   };
 
   return (
     <>
       <Form onSubmit={handleFormSubmit}>
-      {notFilled && <Card color="red">Please fill all the fields</Card>}
+        {notFilled && <Card color="red">Please fill all the fields</Card>}
         <label>
           First Name:
           <input
             type="text"
             name="fName"
             id="fName"
-            placeholder= "First Name"
+            placeholder="First Name"
             onChange={handleBaseInfos}
           />
           Last Name:
@@ -63,7 +80,7 @@ export default function SignUpForm() {
             type="text"
             name="lastName"
             id="lastName"
-            placeholder= "Last Name"
+            placeholder="Last Name"
             onChange={handleBaseInfos}
           />
           Email:
@@ -71,7 +88,7 @@ export default function SignUpForm() {
             type="email"
             name="email"
             id="email"
-            placeholder= "Email"
+            placeholder="Email"
             onChange={handleBaseInfos}
           />
           Password:
@@ -79,7 +96,7 @@ export default function SignUpForm() {
             type="password"
             name="password"
             id="password"
-            placeholder= ""
+            placeholder=""
             onChange={handleBaseInfos}
           />
           Confirm Password:
@@ -87,7 +104,7 @@ export default function SignUpForm() {
             type="password"
             name="password"
             id="password"
-            placeholder= ""
+            placeholder=""
             onChange={handleBaseInfos}
           />
           Bio:
@@ -95,7 +112,7 @@ export default function SignUpForm() {
             type="text"
             name="bio"
             id="bio"
-            placeholder= "Bio"
+            placeholder="Bio"
             onChange={handleBaseInfos}
           />
           Contact Phone:
@@ -103,7 +120,7 @@ export default function SignUpForm() {
             type="number"
             name="cellPhone"
             id="cellPhone"
-            placeholder= "cellPhone"
+            placeholder="cellPhone"
             onChange={handleBaseInfos}
           />
         </label>
@@ -123,9 +140,23 @@ export default function SignUpForm() {
           label={"BarOwner"}
           name="bar"
         />
-        {userType.bar === null && userType.artist === null && <Button type="submit">Submit</Button>}
-        {userType.bar !== null && <AddVenueInfo artist={userType.artist} userInfo={userBaseInfo}/>}
-        {userType.artist !== null && <AddArtistInfo  userInfo={userBaseInfo} venueInfo={AddVenueInfo}/>}
+        {userType.bar !== null && (
+          <AddVenueInfo
+            venue={venue}
+            artist={userType.artist}
+            userInfo={userBaseInfo}
+            test={setvenue}
+          />
+        )}
+        {userType.artist !== null && (
+          <AddArtistInfo
+            userInfo={userBaseInfo}
+            venueInfo={AddVenueInfo}
+            artist={artist}
+            test={setartist}
+          />
+        )}
+        <Button>Submit my nigga</Button>
       </Form>
     </>
   );

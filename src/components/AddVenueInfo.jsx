@@ -3,39 +3,15 @@ import { Form } from "react-bootstrap";
 import { Button, Card } from "semantic-ui-react";
 
 const AddVenueInfo = (props) => {
+  const { test ,venue} = props;
   const [notFilled, setNotFilled] = useState(false);
-  const [inputs, setInputs] = useState({
-    name: "",
-    type: "",
-    opDays: "",
-    opHours: "",
-    address: "",
-    bio: "",
-    website: "",
-    kosher: "",
-  });
 
   const handleChange = (e) => {
     const value = e.target.value;
     const key = e.target.name;
-    const copy = { ...inputs };
+    const copy = { ...venue };
     copy[key] = value;
-    setInputs(copy);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
-    for (let key in inputs) {
-      if (inputs[key] === "") {
-        setNotFilled(true);
-        return;
-      } else {
-        setNotFilled(false);
-        console.log(inputs)
-        // Send the objs to DB
-        // or return inputs (lifting up input, to pass it to the AddArtistInfo on SignUpForm.jsx, if the user is an artist, that way we can have only one submit btn)
-      }
-    }
+    test(copy);
   };
 
   return (
@@ -104,7 +80,6 @@ const AddVenueInfo = (props) => {
               onChange={handleChange}
             />
           </label>
-          {!props.artist && <Button onClick={handleFormSubmit}>Submit</Button>}
         </Form>
       </div>
     </>
