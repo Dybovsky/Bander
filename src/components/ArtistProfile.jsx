@@ -4,6 +4,7 @@ import { useAuth } from "../context/auth";
 const ArtistProfile = () => {
   const auth = useAuth();
   const curUser = auth.user;
+  const updatedUser = {}
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -27,7 +28,7 @@ const ArtistProfile = () => {
             value={updatedUser.firstName}
             name="firstName"
             type="text"
-            onChange={updateUser}
+            onChange={updatedUser}
           />
         </label>
       </form>

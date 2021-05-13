@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Container, Header, Icon, Image, Message, Segmen
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-const ArtistPage = () => {
+const AddArtistInfo = () => {
 
     let userId = useParams();
     const [thisUserArtist, setThisUserArtist] = useState();
@@ -69,4 +69,4 @@ const ArtistPage = () => {
     );
 };
 
-export default ArtistPage;
+export default AddArtistInfo;

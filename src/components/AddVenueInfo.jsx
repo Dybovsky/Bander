@@ -1,23 +1,8 @@
 import { React, useEffect, useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Container,
-  Header,
-  Icon,
-  Image,
-  Message,
-  Segment,
-  TextArea,
-  Input,
-  Popup,
-  Card,
-} from "semantic-ui-react";
-import axios from "axios";
+import { Button, Form, Segment, TextArea, Card } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 
-const VenuePage = () => {
+const AddVenueInfo = () => {
   let userId = useParams();
   const [thisUserVenue, setThisUserVenue] = useState();
   const [notFilled, setNotFilled] = useState(false);
@@ -32,17 +17,7 @@ const VenuePage = () => {
     kosher: "",
   });
 
-  useEffect(() => {
-    const fetchData = () => {
-      // axios.get(`http://localhost:5500/signup/${userId}/venue`).then(response => {
-      //     setThisUserVenue(response)
-      // }).catch(error => {
-      //     // alert(error, "Please full fill all the fields");
-      // });
-    };
-    fetchData();
-    console.log(inputs);
-  }, [inputs]);
+  useEffect(() => {}, []);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -61,19 +36,13 @@ const VenuePage = () => {
         setNotFilled(false);
       }
     }
-    // axios.post(`http://localhost:5500/signup/${userId}/venue`, newVenue).then(response => {
-    //     setThisUserVenue(response)
-    // }).catch(error => {
-    //     // alert(error, "let's try again");
-    //     // window.location.href = "http://localhost:3000/signup";
-    // });
   };
 
   return (
     <>
       <div className="fs-2 text-start m-5" style={{ color: "lightsteelblue" }}>
         <u>
-          <h1>VenuePage</h1>
+          <h1>AddVenueInfo</h1>
           {notFilled && <Card color="red">Did not fill</Card>}
         </u>
         <Segment>
@@ -160,4 +129,4 @@ const VenuePage = () => {
   );
 };
 
-export default VenuePage;
+export default AddVenueInfo;
