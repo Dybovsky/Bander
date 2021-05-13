@@ -7,11 +7,9 @@ import {
 import "./App.css";
 import ArtistProfile from "./components/ArtistProfile";
 import CentralHub from "./components/CentralHub";
-import Navbar from "./components/Navbar";
 import AuthProvider, { useAuth } from "./context/auth";
-import VenuePage from "./components/VenuePage";
-import ArtistPage from "./components/ArtistPage";
 import BarProfile from "./components/BarProfile";
+import Navbar from "./components/Navbar";
 
 const ContextApp = () => {
   const auth = useAuth();
