@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const ArtistPage = () => {
 
     let userId = useParams();
-    const [thisUserArtist, setThisUserArtist] = useState({});
+    const [thisUserArtist, setThisUserArtist] = useState();
 
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
@@ -37,7 +37,7 @@ const ArtistPage = () => {
                 firstName, lastName, artName, artInstrument, city, bio, instagram, kosher
             }
             // axios.post(`http://localhost:5500/signup/${userId}/artist`, newArtist).then(response => {
-            //     window.location.reload();
+            //     setThisUserArtist(response)
             // }).catch(error => {
             //     // alert(error, "let's try again");
             //     // window.location.href = "http://localhost:3000/signup";

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const VenuePage = () => {
 
     let userId = useParams();
-    const [thisUserVenue, setThisUserVenue] = useState({});
+    const [thisUserVenue, setThisUserVenue] = useState();
 
     const [estName, setEstName] = useState(null);
     const [estType, setEstType] = useState(null);
@@ -18,7 +18,7 @@ const VenuePage = () => {
     const [kosher, setKosher] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             // axios.get(`http://localhost:5500/signup/${userId}/venue`).then(response => {
             //     setThisUserVenue(response)
             // }).catch(error => {
@@ -37,7 +37,7 @@ const VenuePage = () => {
                 estName, estType, daysWeek, hoursWeek, address, bio, site, kosher
             }
             // axios.post(`http://localhost:5500/signup/${userId}/venue`, newVenue).then(response => {
-            //     window.location.reload();
+            //     setThisUserVenue(response)
             // }).catch(error => {
             //     // alert(error, "let's try again");
             //     // window.location.href = "http://localhost:3000/signup";
