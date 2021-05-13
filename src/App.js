@@ -33,9 +33,9 @@ const ContextApp = () => {
           <Route path="/artist_profile">
             <ArtistProfile />
           </Route>
-          <Route path="/bar_profile">
+          {/* <Route path="/bar_profile">
             <BarProfile />
-          </Route>
+          </Route> */}
           <Route path="/">
             <Redirect to="/home" />
           </Route>

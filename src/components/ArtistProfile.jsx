@@ -18,12 +18,13 @@ const artist = mocArtist;
 
 const ArtistProfile = () => {
   //   const auth = useAuth();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   //   const artist = auth.user;
 
   const [updatedUser, setUpdatedUser] = useState(artist);
 
   const saveChanges = (user) => {
+    setOpen(!open);
     console.log("updated user", updatedUser);
 
     //send to db
@@ -37,81 +38,86 @@ const ArtistProfile = () => {
   };
 
   return (
-    <div>
+    <>
       <h1>Artist profile</h1>
-      <div>
-        <img src={artist.image} alt="avatar" />
-        <Form>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={artist.firstName}
-            onChange={updateUser}
-            name="firstName"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={artist.lastName}
-            onChange={updateUser}
-            name="lastName"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={mocArtist.nickname}
-            onChange={updateUser}
-            name="nickname"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={artist.email}
-            onChange={updateUser}
-            name="email"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={artist.instrument}
-            onChange={updateUser}
-            name="instrument"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={artist.genre}
-            onChange={updateUser}
-            name="genre"
-          ></Form.Control>
-          {!open && (
+      <div className="back">
+        <div>
+          <img src={artist.image} alt="avatar" className="avatar" />
+          <Form className="form">
             <Form.Control
               readOnly={open}
               plaintext={open}
-              type="password"
-              placeholder="Password"
-              defaultValue=""
+              defaultValue={artist.firstName}
               onChange={updateUser}
-              name="password"
+              name="firstName"
             ></Form.Control>
-          )}
-          {!open && (
             <Form.Control
               readOnly={open}
               plaintext={open}
-              type="password"
-              placeholder="Password check"
-              defaultValue=""
+              defaultValue={artist.lastName}
               onChange={updateUser}
-              name="passwordCheck"
+              name="lastName"
             ></Form.Control>
+            <Form.Control
+              readOnly={open}
+              plaintext={open}
+              defaultValue={mocArtist.nickname}
+              onChange={updateUser}
+              name="nickname"
+            ></Form.Control>
+            <Form.Control
+              readOnly={open}
+              plaintext={open}
+              defaultValue={artist.email}
+              onChange={updateUser}
+              name="email"
+            ></Form.Control>
+            <Form.Control
+              readOnly={open}
+              plaintext={open}
+              defaultValue={artist.instrument}
+              onChange={updateUser}
+              name="instrument"
+            ></Form.Control>
+            <Form.Control
+              readOnly={open}
+              plaintext={open}
+              defaultValue={artist.genre}
+              onChange={updateUser}
+              name="genre"
+            ></Form.Control>
+            {!open && (
+              <Form.Control
+                readOnly={open}
+                plaintext={open}
+                type="password"
+                placeholder="Password"
+                defaultValue=""
+                onChange={updateUser}
+                name="password"
+              ></Form.Control>
+            )}
+            {!open && (
+              <Form.Control
+                readOnly={open}
+                plaintext={open}
+                type="password"
+                placeholder="Password check"
+                defaultValue=""
+                onChange={updateUser}
+                name="passwordCheck"
+              ></Form.Control>
+            )}
+          </Form>
+        </div>
+        <div className="buttons">
+          <Button onClick={() => setOpen(!open)}>Edit account</Button>
+          {!open && (
+            <Button onClick={() => saveChanges(updatedUser)}>Save</Button>
           )}
-        </Form>
+        </div>
       </div>
-
-      <Button onClick={() => setOpen(!open)}>Edit account</Button>
-      {!open && <Button onClick={() => saveChanges(updatedUser)}>Save</Button>}
-    </div>
+    </>
   );
 };
 
