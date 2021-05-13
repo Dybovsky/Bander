@@ -9,3 +9,17 @@
     min-height: 100vh;
     position:relative;
 }
+
+.venueForm Input{
+    margin: 30px;
+}
+
+.venueForm textarea{
+    max-width: 600px;
+    max-height: 350px;
+    min-width: 600px;
+    min-height: 350px;
+    position: relative;
+    top:10px;
+    left:30px;
+}
