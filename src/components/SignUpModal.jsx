@@ -11,7 +11,7 @@ export default function SignUpModal() {
 
   return (
     <>
-      <Button onClick={() => handleToggle(true)}>Signup</Button>
+      <Button onClick={() => handleToggle(true)}>SignUp</Button>
       <Modal backdrop="static" show={isOpen}>
         <SignUpForm />
         <Button onClick={() => handleToggle(false)}>Close</Button>

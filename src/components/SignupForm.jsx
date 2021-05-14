@@ -15,8 +15,8 @@ export default function SignUpForm() {
     cellPhone: null,
   });
   const [notFilled, setNotFilled] = useState(false);
-  const [venue, setvenue] = useState({});
-  const [artist, setartist] = useState({});
+  const [venue, setvenue] = useState({ name: null, type: null, opDays: null, opHours: null, address: null, bio: null, website: null, kosher: null });
+  const [artist, setartist] = useState({ artName: null, genre: null, instruments: null, slogan: null, address: null, bio: null, Instagram: null, kosher: null});
 
   const handleChecks = (e) => {
     const checked = e.target.checked;
@@ -48,26 +48,45 @@ export default function SignUpForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    userBaseInfo.artinfo = artist;
+    userBaseInfo.venue = venue;
     for (let name in userBaseInfo) {
-      if (userBaseInfo[name] === null) {
+      if (userBaseInfo[name] === null || userBaseInfo[name] === "") {
         setNotFilled(true);
         return;
       } else {
+        if(userType.bar !== null) {
+          for (let name in venue) {
+            if (venue[name] === null || venue[name] === "") {
+              setNotFilled(true);
+              return;
+            } else {
+              setNotFilled(false);
+            }
+          }
+        }
+        if(userType.artist !== null) {
+          for (let name in artist) {
+            if (artist[name] === null || artist[name] === "") {
+              setNotFilled(true);
+              return;
+            } else {
+              setNotFilled(false);
+            }
+          }
+        }
+      }
         setNotFilled(false);
         // Send the objs to DB
-      }
-    }
-    userBaseInfo.artinfo = artist;
-    userBaseInfo.venue = venue;
-    console.log(userBaseInfo);
+    };
+    console.log("Done")
   };
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
-        {notFilled && <Card color="red">Please fill all the fields</Card>}
+      {notFilled && <Card color="red" className="fillAllCard" >Please fill all the fields</Card>}
+      <Form onSubmit={handleFormSubmit} className="signUpForms">
         <label>
-          First Name:
           <input
             type="text"
             name="fName"
@@ -75,7 +94,6 @@ export default function SignUpForm() {
             placeholder="First Name"
             onChange={handleBaseInfos}
           />
-          Last Name:
           <input
             type="text"
             name="lastName"
@@ -83,7 +101,6 @@ export default function SignUpForm() {
             placeholder="Last Name"
             onChange={handleBaseInfos}
           />
-          Email:
           <input
             type="email"
             name="email"
@@ -91,36 +108,32 @@ export default function SignUpForm() {
             placeholder="Email"
             onChange={handleBaseInfos}
           />
-          Password:
           <input
             type="password"
             name="password"
             id="password"
-            placeholder=""
+            placeholder="Password"
             onChange={handleBaseInfos}
           />
-          Confirm Password:
           <input
             type="password"
             name="password"
             id="password"
-            placeholder=""
+            placeholder="Confirm Password"
             onChange={handleBaseInfos}
           />
-          Bio:
+            <input
+              type="number"
+              name="cellPhone"
+              id="cellPhone"
+              placeholder="Contact Phone"
+              onChange={handleBaseInfos}
+            />
           <textarea
             type="text"
             name="bio"
             id="bio"
-            placeholder="Bio"
-            onChange={handleBaseInfos}
-          />
-          Contact Phone:
-          <input
-            type="number"
-            name="cellPhone"
-            id="cellPhone"
-            placeholder="cellPhone"
+            placeholder="MyBio"
             onChange={handleBaseInfos}
           />
         </label>

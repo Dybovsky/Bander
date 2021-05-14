@@ -20,59 +20,50 @@ const AddVenueInfo = (props) => {
         <u>
           <h1>Add Venue Info</h1>
         </u>
-        <Form>
-          {notFilled && <Card color="red">Please fill all the fields</Card>}
+        <Form className="signUpForms">
           <label>
-            Establishment name:
             <input
               type="text"
               name="name"
               placeholder="Establishment name"
               onChange={handleChange}
             />
-            Establishment type:
             <input
               type="text"
               name="type"
               placeholder="Establishment type"
               onChange={handleChange}
             />
-            Days open in th week"
             <input
               type="text"
               name="opDays"
               placeholder="Days open in th week"
               onChange={handleChange}
             />
-            Hours open in the week:
             <input
               type="text"
               name="opHours"
               placeholder="Hours open in the week"
               onChange={handleChange}
             />
-            Address
             <input
               type="text"
               name="address"
               placeholder="Address"
               onChange={handleChange}
             />
-            Bio:
             <textarea
               type="text"
               name="bio"
-              placeholder="Bio"
+              placeholder="My Establishment Bio"
               onChange={handleChange}
             />
-            Website:
             <input
               type="text"
               name="website"
               placeholder="mysite.com"
               onChange={handleChange}
             />
-            Kosher:
             <input
               type="text"
               name="kosher"
