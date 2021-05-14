@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { Button, Card } from "semantic-ui-react";
 
 const AddVenueInfo = (props) => {
-  const { test ,venue} = props;
+  const { setVenue ,venue} = props;
   const [notFilled, setNotFilled] = useState(false);
 
   const handleChange = (e) => {
@@ -11,7 +11,7 @@ const AddVenueInfo = (props) => {
     const key = e.target.name;
     const copy = { ...venue };
     copy[key] = value;
-    test(copy);
+    setVenue(copy);
   };
 
   return (

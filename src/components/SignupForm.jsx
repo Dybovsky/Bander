@@ -143,9 +143,8 @@ export default function SignUpForm() {
         {userType.bar !== null && (
           <AddVenueInfo
             venue={venue}
-            artist={userType.artist}
             userInfo={userBaseInfo}
-            test={setvenue}
+            setVenue={setvenue}
           />
         )}
         {userType.artist !== null && (
@@ -153,10 +152,10 @@ export default function SignUpForm() {
             userInfo={userBaseInfo}
             venueInfo={AddVenueInfo}
             artist={artist}
-            test={setartist}
+            setartist={setartist}
           />
         )}
-        <Button>Submit my nigga</Button>
+        <Button>Submit</Button>
       </Form>
     </>
   );
