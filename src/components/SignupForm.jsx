@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import { Button, Card } from "semantic-ui-react";
+import { Form, Button } from "react-bootstrap";
+import { Card } from "semantic-ui-react";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 
-export default function SignUpForm() {
+export default function SignUpForm({ handleToggle }) {
   const [userType, setUserType] = useState({ bar: null, artist: null });
   const [userBaseInfo, setUserBaseInfo] = useState({
     fName: null,
@@ -15,8 +15,26 @@ export default function SignUpForm() {
     cellPhone: null,
   });
   const [notFilled, setNotFilled] = useState(false);
-  const [venue, setvenue] = useState({ name: null, type: null, opDays: null, opHours: null, address: null, bio: null, website: null, kosher: null });
-  const [artist, setartist] = useState({ artName: null, genre: null, instruments: null, slogan: null, address: null, bio: null, Instagram: null, kosher: null});
+  const [venue, setvenue] = useState({
+    name: null,
+    type: null,
+    opDays: null,
+    opHours: null,
+    address: null,
+    bio: null,
+    website: null,
+    kosher: null,
+  });
+  const [artist, setartist] = useState({
+    artName: null,
+    genre: null,
+    instruments: null,
+    slogan: null,
+    address: null,
+    bio: null,
+    Instagram: null,
+    kosher: null,
+  });
 
   const handleChecks = (e) => {
     const checked = e.target.checked;
@@ -55,7 +73,7 @@ export default function SignUpForm() {
         setNotFilled(true);
         return;
       } else {
-        if(userType.bar !== null) {
+        if (userType.bar !== null) {
           for (let name in venue) {
             if (venue[name] === null || venue[name] === "") {
               setNotFilled(true);
@@ -65,7 +83,7 @@ export default function SignUpForm() {
             }
           }
         }
-        if(userType.artist !== null) {
+        if (userType.artist !== null) {
           for (let name in artist) {
             if (artist[name] === null || artist[name] === "") {
               setNotFilled(true);
@@ -76,15 +94,19 @@ export default function SignUpForm() {
           }
         }
       }
-        setNotFilled(false);
-        // Send the objs to DB
-    };
-    console.log("Done")
+      setNotFilled(false);
+      // Send the objs to DB
+    }
+    console.log("Done");
   };
 
   return (
     <>
-      {notFilled && <Card color="red" className="fillAllCard" >Please fill all the fields</Card>}
+      {notFilled && (
+        <Card color="red" className="fillAllCard">
+          Please fill all the fields
+        </Card>
+      )}
       <Form onSubmit={handleFormSubmit} className="signUpForms">
         <label>
           <input
@@ -122,13 +144,13 @@ export default function SignUpForm() {
             placeholder="Confirm Password"
             onChange={handleBaseInfos}
           />
-            <input
-              type="number"
-              name="cellPhone"
-              id="cellPhone"
-              placeholder="Contact Phone"
-              onChange={handleBaseInfos}
-            />
+          <input
+            type="number"
+            name="cellPhone"
+            id="cellPhone"
+            placeholder="Contact Phone"
+            onChange={handleBaseInfos}
+          />
           <textarea
             type="text"
             name="bio"
@@ -145,30 +167,35 @@ export default function SignUpForm() {
           label={"Artist"}
           name="artist"
         />
-        <Form.Check
-          onChange={handleChecks}
-          type={"checkbox"}
-          id={2}
-          value="bar"
-          label={"BarOwner"}
-          name="bar"
-        />
-        {userType.bar !== null && (
-          <AddVenueInfo
-            venue={venue}
-            userInfo={userBaseInfo}
-            setVenue={setvenue}
+        <div className="right">
+          <Form.Check
+            onChange={handleChecks}
+            type={"checkbox"}
+            id={2}
+            value="bar"
+            label={"Bar owner"}
+            name="bar"
           />
-        )}
-        {userType.artist !== null && (
-          <AddArtistInfo
-            userInfo={userBaseInfo}
-            venueInfo={AddVenueInfo}
-            artist={artist}
-            setartist={setartist}
-          />
-        )}
-        <Button>Submit</Button>
+          {userType.bar !== null && (
+            <AddVenueInfo
+              venue={venue}
+              userInfo={userBaseInfo}
+              setVenue={setvenue}
+            />
+          )}
+          {userType.artist !== null && (
+            <AddArtistInfo
+              userInfo={userBaseInfo}
+              venueInfo={AddVenueInfo}
+              artist={artist}
+              setartist={setartist}
+            />
+          )}
+          <div className="btns">
+            <Button>Submit</Button>
+            <Button onClick={() => handleToggle(false)}>Close</Button>
+          </div>
+        </div>
       </Form>
     </>
   );
