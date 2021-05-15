@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import SignupForm from "./SignupForm";
+import SignUpForm from "./SignupForm";
 
 export default function SignUpModal() {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = (bool) => {
-    setisOpen(bool);
-    console.log(bool);
+    setIsOpen(bool);;
   };
 
   return (
     <>
-      <Button onClick={() => handleToggle(true)}>Signup</Button>
+      <Button onClick={() => handleToggle(true)}>SignUp</Button>
       <Modal backdrop="static" show={isOpen}>
-        <SignupForm />
+        <SignUpForm />
         <Button onClick={() => handleToggle(false)}>Close</Button>
       </Modal>
     </>

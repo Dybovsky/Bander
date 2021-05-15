@@ -1,3 +1,4 @@
+import 'semantic-ui-css/semantic.min.css'
 import {
   Redirect,
   Route,
@@ -11,6 +12,8 @@ import AuthProvider, { useAuth } from "./context/auth";
 import BarProfile from "./components/BarProfile";
 import Navbar from "./components/Navbar";
 
+import Signup from "./pages/Signup";
+
 const ContextApp = () => {
   const auth = useAuth();
 
@@ -21,6 +24,9 @@ const ContextApp = () => {
         <Switch>
           <Route path="/home">
             <CentralHub />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/">
             <Redirect to="/home" />
