@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import { SignUp } from "../firebase/firebase.auth";
-import { CSSTransition, CSSTransitionGroup } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
+import AnimateHeight from "react-animate-height";
 
 export default function SignUpForm() {
   const [venueCheck, setVenueCheck] = useState(false);
@@ -12,17 +13,29 @@ export default function SignUpForm() {
   const [userBaseInfo, setUserBaseInfo] = useState({});
   const [venue, setvenue] = useState({});
   const [artist, setartist] = useState({});
+  const [venHeight, setVenHeight] = useState(0);
+  const [artHeight, setArtHeight] = useState(0);
 
   const handleChecks = (e) => {
     const checked = e.target.checked;
     const name = e.target.name;
 
     if (checked) {
-      if (name === "artist") setArtCheck(true);
-      else setVenueCheck(true);
+      if (name === "artist") {
+        setArtCheck(true);
+        setArtHeight("auto");
+      } else {
+        setVenHeight("auto");
+        setVenueCheck(true);
+      }
     } else {
-      if (name === "artist") setArtCheck(false);
-      else setVenueCheck(false);
+      if (name === "artist") {
+        setArtHeight(0);
+        setArtCheck(false);
+      } else {
+        setVenHeight(0);
+        setVenueCheck(false);
+      }
     }
   };
 
@@ -148,21 +161,14 @@ export default function SignUpForm() {
             name="bar"
           />
         </div>
-        <CSSTransitionGroup
-          transitionName="fade"
-          transitionAppear={true}
-          transitionAppearTimeout={500}
-          transitionEnter={false}
-          transitionLeave={false}
-        >
-          {venueCheck && (
-            <AddVenueInfo key={1} venue={venue} setVenue={setvenue} />
-          )}
+        <AnimateHeight height={venHeight}>
+          <AddVenueInfo venue={venue} setVenue={setvenue} />
+        </AnimateHeight>
 
-          {artCheck && (
-            <AddArtistInfo key={2} artist={artist} setartist={setartist} />
-          )}
-        </CSSTransitionGroup>
+        <AnimateHeight height={artHeight}>
+          <AddArtistInfo artist={artist} setartist={setartist} />
+        </AnimateHeight>
+
         <Button className="block" type="submit">
           Submit
         </Button>
