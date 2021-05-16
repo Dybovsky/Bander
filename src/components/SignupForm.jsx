@@ -1,39 +1,32 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import { Button, Card } from "semantic-ui-react";
+import { Form, Button, Card } from "react-bootstrap";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
+import { SignUp } from "../firebase/firebase.auth";
+import { CSSTransition, CSSTransitionGroup } from "react-transition-group";
 
 export default function SignUpForm() {
-  const [userType, setUserType] = useState({ bar: null, artist: null });
-  const [userBaseInfo, setUserBaseInfo] = useState({
-    fName: null,
-    password: null,
-    lastName: null,
-    email: null,
-    bio: null,
-    cellPhone: null,
-  });
-  const [notFilled, setNotFilled] = useState(false);
-  const [venue, setvenue] = useState({ name: null, type: null, opDays: null, opHours: null, address: null, bio: null, website: null, kosher: null });
-  const [artist, setartist] = useState({ artName: null, genre: null, instruments: null, slogan: null, address: null, bio: null, Instagram: null, kosher: null});
+  const [venueCheck, setVenueCheck] = useState(false);
+  const [artCheck, setArtCheck] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [userBaseInfo, setUserBaseInfo] = useState({});
+  const [venue, setvenue] = useState({});
+  const [artist, setartist] = useState({});
 
   const handleChecks = (e) => {
     const checked = e.target.checked;
-    const copy = { ...userType };
     const name = e.target.name;
-    const value = e.target.value;
 
     if (checked) {
-      copy[name] = value;
-      setUserType(copy);
+      if (name === "artist") setArtCheck(true);
+      else setVenueCheck(true);
     } else {
-      copy[name] = null;
-      setUserType(copy);
+      if (name === "artist") setArtCheck(false);
+      else setVenueCheck(false);
     }
   };
 
-  const handleBaseInfos = (e) => {
+  const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     const copy = { ...userBaseInfo };
@@ -47,128 +40,132 @@ export default function SignUpForm() {
   }, [artist, venue]);
 
   const handleFormSubmit = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    userBaseInfo.artinfo = artist;
-    userBaseInfo.venue = venue;
-    for (let name in userBaseInfo) {
-      if (userBaseInfo[name] === null || userBaseInfo[name] === "") {
-        setNotFilled(true);
-        return;
-      } else {
-        if(userType.bar !== null) {
-          for (let name in venue) {
-            if (venue[name] === null || venue[name] === "") {
-              setNotFilled(true);
-              return;
-            } else {
-              setNotFilled(false);
-            }
-          }
-        }
-        if(userType.artist !== null) {
-          for (let name in artist) {
-            if (artist[name] === null || artist[name] === "") {
-              setNotFilled(true);
-              return;
-            } else {
-              setNotFilled(false);
-            }
-          }
-        }
-      }
-        setNotFilled(false);
-        // Send the objs to DB
-    };
-    console.log("Done")
+    const form = e.currentTarget;
+    //filled
+    if (form.checkValidity()) {
+      userBaseInfo.artinfo = artist;
+      userBaseInfo.venue = venue;
+      SignUp(userBaseInfo);
+      setValidated(true);
+    } else {
+      //not filled
+      setValidated(false);
+    }
   };
 
   return (
     <>
-      {notFilled && <Card color="red" className="fillAllCard" >Please fill all the fields</Card>}
-      <Form onSubmit={handleFormSubmit} className="signUpForms">
-        <label>
-          <input
+      {validated && (
+        <Card color="red" className="fillAllCard">
+          Please fill all the fields
+        </Card>
+      )}
+      <Form
+        validated={validated}
+        onSubmit={handleFormSubmit}
+        className="formMarg"
+      >
+        <Form.Group>
+          <Form.Control
+            required
+            minLength={6}
             type="text"
             name="fName"
             id="fName"
             placeholder="First Name"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-          <input
+          <Form.Control
+            required
+            minLength={6}
             type="text"
-            name="lastName"
-            id="lastName"
+            name="lName"
+            id="lName"
             placeholder="Last Name"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-          <input
+          <Form.Control
+            required
+            minLength={6}
             type="email"
             name="email"
             id="email"
             placeholder="Email"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-          <input
+          <Form.Control
+            required
+            minLength={6}
             type="password"
-            name="password"
-            id="password"
+            name="pwd"
+            id="pwd"
             placeholder="Password"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-          <input
+          <Form.Control
+            required
+            minLength={6}
             type="password"
-            name="password"
-            id="password"
+            name="conPwd"
+            id="conPwd"
             placeholder="Confirm Password"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-            <input
-              type="number"
-              name="cellPhone"
-              id="cellPhone"
-              placeholder="Contact Phone"
-              onChange={handleBaseInfos}
-            />
-          <textarea
+          <Form.Control
+            required
+            minLength={6}
+            type="number"
+            name="phoneNumber"
+            id="phoneNumber"
+            placeholder="Phone number"
+            onChange={handleInput}
+          />
+          <Form.Control
             type="text"
             name="bio"
             id="bio"
             placeholder="MyBio"
-            onChange={handleBaseInfos}
+            onChange={handleInput}
           />
-        </label>
-        <Form.Check
-          onChange={handleChecks}
-          type={"checkbox"}
-          id={1}
-          value="artist"
-          label={"Artist"}
-          name="artist"
-        />
-        <Form.Check
-          onChange={handleChecks}
-          type={"checkbox"}
-          id={2}
-          value="bar"
-          label={"BarOwner"}
-          name="bar"
-        />
-        {userType.bar !== null && (
-          <AddVenueInfo
-            venue={venue}
-            userInfo={userBaseInfo}
-            setVenue={setvenue}
+        </Form.Group>
+        <div className="d-flex justify-content-around">
+          <Form.Check
+            onChange={handleChecks}
+            type={"checkbox"}
+            id={1}
+            value="artist"
+            label={"Artist"}
+            name="artist"
           />
-        )}
-        {userType.artist !== null && (
-          <AddArtistInfo
-            userInfo={userBaseInfo}
-            venueInfo={AddVenueInfo}
-            artist={artist}
-            setartist={setartist}
+          <Form.Check
+            onChange={handleChecks}
+            type={"checkbox"}
+            id={2}
+            value="bar"
+            label={"BarOwner"}
+            name="bar"
           />
-        )}
-        <Button>Submit</Button>
+        </div>
+        <CSSTransitionGroup
+          transitionName="fade"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnter={false}
+          transitionLeave={false}
+        >
+          {venueCheck && (
+            <AddVenueInfo key={1} venue={venue} setVenue={setvenue} />
+          )}
+
+          {artCheck && (
+            <AddArtistInfo key={2} artist={artist} setartist={setartist} />
+          )}
+        </CSSTransitionGroup>
+        <Button className="block" type="submit">
+          Submit
+        </Button>
       </Form>
     </>
   );
