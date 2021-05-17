@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../context/auth";
 import { signInEmail } from "../firebase/firebase.auth";
+import React, { useEffect } from 'react'
 
 export default function SignInEmailModal() {
   const [open, setOpen] = useState(false);
@@ -15,6 +16,18 @@ export default function SignInEmailModal() {
     saveToken(userInfo);
   };
 
+  useEffect(() => {
+    document.body.addEventListener('keydown', closeOnEscapeKeyDown)
+    return async function cleanup() {
+       await document.body.removeEventListener('keydown', closeOnEscapeKeyDown)
+    }
+}, [])
+
+const closeOnEscapeKeyDown = (e) => {
+    if ((e.charCode || e.keyCode) === 27) {
+      setOpen(false)
+    }
+}  
   return (
     <>
       <Button onClick={() => setOpen(true)}>Sign in Email</Button>

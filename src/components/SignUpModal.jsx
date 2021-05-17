@@ -1,9 +1,23 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import SignUpForm from "./SignupForm";
+import React, { useEffect } from 'react'
 
 export default function SignUpModal() {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', closeOnEscapeKeyDown)
+    return async function cleanup() {
+       await document.body.removeEventListener('keydown', closeOnEscapeKeyDown)
+    }
+}, [])
+
+const closeOnEscapeKeyDown = (e) => {
+    if ((e.charCode || e.keyCode) === 27) {
+      setIsOpen(false)
+    }
+}  
 
   const handleToggle = (bool) => {
     setIsOpen(bool);
