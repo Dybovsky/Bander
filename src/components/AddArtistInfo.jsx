@@ -13,7 +13,7 @@ const AddVenueInfo = (props) => {
   };
   return (
     <>
-      <Form className="mx-5">
+      <Form className="mx-5 formMarg">
         <u>
           <h1>Add Artist Info</h1>
         </u>

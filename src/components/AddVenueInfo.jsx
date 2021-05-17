@@ -14,7 +14,7 @@ const AddVenueInfo = (props) => {
 
   return (
     <>
-      <Form className="mx-5">
+      <Form className="mx-5 formMarg">
         <u>
           <h1>Add Venue Info</h1>
         </u>
