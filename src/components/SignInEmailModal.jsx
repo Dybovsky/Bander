@@ -15,7 +15,7 @@ export default function SignInEmailModal() {
 
   return (
     <>
-      <Button className="m-1" onClick={() => setOpen(true)}>
+      <Button className="mx-2" onClick={() => setOpen(true)}>
         Sign in Email
       </Button>
       <Modal show={open}>

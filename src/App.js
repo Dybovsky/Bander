@@ -1,4 +1,5 @@
-import 'semantic-ui-css/semantic.min.css'
+import "semantic-ui-css/semantic.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Redirect,
   Route,
@@ -10,31 +11,25 @@ import ArtistProfile from "./components/ArtistProfile";
 import CentralHub from "./components/CentralHub";
 import AuthProvider, { useAuth } from "./context/auth";
 import BarProfile from "./components/BarProfile";
-import Navbar from "./components/Navbar";
-
-import Signup from "./pages/Signup";
+import BanderNavbar from "./components/BanderNavbar";
 
 const ContextApp = () => {
-  const auth = useAuth();
 
   return (
     <Router>
       <div className="Background">
-        <Navbar />
+        <BanderNavbar />
         <Switch>
           <Route path="/home">
             <CentralHub />
           </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
           <Route path="/">
             <Redirect to="/home" />
           </Route>
-          <Route path="/artist_profile">
+          <Route path="/artist_profile/:id">
             <ArtistProfile />
           </Route>
-          <Route path="/bar_profile">
+          <Route path="/bar_profile/:id">
             <BarProfile />
           </Route>
           <Route path="/">
