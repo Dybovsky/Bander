@@ -8,30 +8,31 @@ admin.initializeApp({
 
 router.post("/createUser", async (req, res) => {
   const payload = req.body;
-  const venue = payload.venue;
-  const artist = payload.artinfo;
-  const authUserToCreate = {
-    email: payload.email,
-    password: payload.pwd,
-    displayName: `${payload.fName} ${payload.lName}`,
+  const { newUser, artist, venue } = payload;
+  const createToken = {
+    email: newUser.email,
+    password: newUser.pwd,
+    displayName: `${newUser.fName} ${newUser.lName}`,
     photoURL: "http://www.example.com/12345678/photo.png",
   };
-  if(!venue.nickname) console.log("hola")
-  if(artist === {}) console.log("hola")
   try {
-    delete payload.pwd;
-    delete payload.conPwd;
-    delete payload.artinfo;
-    delete payload.venue;
-    const createUser = await admin.auth().createUser(authUserToCreate);
-    const createDBProfile = await admin
-    .firestore()
-    .collection("users")
-    .doc(createUser.uid)
-    .set(payload);
+    const createUser = await admin.auth().createUser(createToken);
+    delete newUser.pwd;
+    delete newUser.conPwd;
+    newUser.photoURL = createUser.photoURL;
+    newUser.uid = createUser.uid;
+
+    if (createUser) {
+      admin.firestore().collection("users").doc(createUser.uid).set(newUser);
+      admin.firestore().collection("artist").doc(createUser.uid).set(artist);
+      admin.firestore().collection("venues").doc(createUser.uid).set(venue);
+    }
+    
   } catch (err) {
     console.log(err);
+    res.send(err)
   }
+  const token = admin.auth().createCustomToken()
   res.send("henlo");
 });
 

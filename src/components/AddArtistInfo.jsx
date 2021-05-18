@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Button, Form, Card } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 const AddVenueInfo = (props) => {
   const { setartist, artist } = props;
@@ -14,48 +14,31 @@ const AddVenueInfo = (props) => {
   return (
     <>
       <Form className="mx-5 formMarg">
-        <u>
-          <h1>Add Artist Info</h1>
-        </u>
+        <h1>Tell us a bit more about Yourself!</h1>
         <Form.Group>
           <Form.Control
-            name="nickName"
-            placeholder="Nickname"
+            name="stageName"
+            placeholder="Stage Name"
             onChange={handleChange}
           />
           <Form.Control
-            name="genre"
-            placeholder="Genre"
+            name="genres"
+            placeholder="Genres"
             onChange={handleChange}
           />
           <Form.Control
             name="instruments"
-            placeholder="Instruments I play"
+            placeholder="My expretise (Vocals ,Instruments, etc.)"
             onChange={handleChange}
           />
           <Form.Control
-            name="slogan"
-            placeholder="Your slogan"
-            onChange={handleChange}
-          />
-          <Form.Control
-            name="address"
-            placeholder="City"
-            onChange={handleChange}
-          />
-          <Form.Control
-            name="bio"
-            placeholder="Artistic Bio"
+            name="location"
+            placeholder="Location (How mobile are you ?)"
             onChange={handleChange}
           />
           <Form.Control
             name="Instagram"
             placeholder="Instagram"
-            onChange={handleChange}
-          />
-          <Form.Control
-            name="kosher"
-            placeholder="kosher?"
             onChange={handleChange}
           />
         </Form.Group>

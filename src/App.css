@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
+
 body {
-  /* background-position: 100%; */
   background-image: url("https://res.cloudinary.com/urielnaiman/image/upload/v1620808116/m-4_M8uIfPEZw-unsplash_na8ph1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -9,6 +10,25 @@ body {
   margin: 5px 0 5px 0;
 }
 
-.block{
-  width: 100%;
+.btnAlign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block {
+  margin: 15px 0 0 0;
+  width: 50%;
+}
+
+.formFont {
+  font-family: "Noto Sans JP";
+}
+
+h1 {
+  color: #111;
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 32px;
 }

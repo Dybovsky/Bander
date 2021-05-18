@@ -14,7 +14,6 @@ import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
 
 const ContextApp = () => {
-  const auth = useAuth();
 
   return (
     <Router>
@@ -27,10 +26,10 @@ const ContextApp = () => {
           <Route path="/">
             <Redirect to="/home" />
           </Route>
-          <Route path="/artist_profile">
+          <Route path="/artist_profile/:id">
             <ArtistProfile />
           </Route>
-          <Route path="/bar_profile">
+          <Route path="/bar_profile/:id">
             <BarProfile />
           </Route>
           <Route path="/">

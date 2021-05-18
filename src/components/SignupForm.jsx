@@ -1,16 +1,13 @@
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import { SignUp } from "../firebase/firebase.auth";
-import { CSSTransition } from "react-transition-group";
 import AnimateHeight from "react-animate-height";
 
 export default function SignUpForm() {
-  const [venueCheck, setVenueCheck] = useState(false);
-  const [artCheck, setArtCheck] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [userBaseInfo, setUserBaseInfo] = useState({});
+  const [newUser, setNewUser] = useState({});
   const [venue, setvenue] = useState({});
   const [artist, setartist] = useState({});
   const [venHeight, setVenHeight] = useState(0);
@@ -22,19 +19,19 @@ export default function SignUpForm() {
 
     if (checked) {
       if (name === "artist") {
-        setArtCheck(true);
         setArtHeight("auto");
+        newUser.isArtist = true;
       } else {
         setVenHeight("auto");
-        setVenueCheck(true);
+        newUser.isOwner = true;
       }
     } else {
       if (name === "artist") {
+        newUser.isArtist = false;
         setArtHeight(0);
-        setArtCheck(false);
       } else {
+        newUser.isOwner = false;
         setVenHeight(0);
-        setVenueCheck(false);
       }
     }
   };
@@ -42,14 +39,14 @@ export default function SignUpForm() {
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    const copy = { ...userBaseInfo };
+    const copy = { ...newUser };
     copy[name] = value;
-    setUserBaseInfo(copy);
+    setNewUser(copy);
   };
 
   useEffect(() => {
-    console.log(artist);
     console.log(venue);
+    console.log(artist);
   }, [artist, venue]);
 
   const handleFormSubmit = (e) => {
@@ -58,9 +55,7 @@ export default function SignUpForm() {
     const form = e.currentTarget;
     //filled
     if (form.checkValidity()) {
-      userBaseInfo.artinfo = artist;
-      userBaseInfo.venue = venue;
-      SignUp(userBaseInfo);
+      SignUp({ newUser, artist, venue });
       setValidated(true);
     } else {
       //not filled
@@ -78,12 +73,12 @@ export default function SignUpForm() {
       <Form
         validated={validated}
         onSubmit={handleFormSubmit}
-        className="formMarg"
+        className="formMarg formFont orderItems"
       >
         <Form.Group>
           <Form.Control
             required
-            minLength={6}
+            minLength={3}
             type="text"
             name="fName"
             id="fName"
@@ -92,7 +87,7 @@ export default function SignUpForm() {
           />
           <Form.Control
             required
-            minLength={6}
+            minLength={3}
             type="text"
             name="lName"
             id="lName"
@@ -101,7 +96,7 @@ export default function SignUpForm() {
           />
           <Form.Control
             required
-            minLength={6}
+            minLength={5}
             type="email"
             name="email"
             id="email"
@@ -128,7 +123,7 @@ export default function SignUpForm() {
           />
           <Form.Control
             required
-            minLength={6}
+            minLength={10}
             type="number"
             name="phoneNumber"
             id="phoneNumber"
@@ -139,7 +134,7 @@ export default function SignUpForm() {
             type="text"
             name="bio"
             id="bio"
-            placeholder="MyBio"
+            placeholder="Tell us about yourself..."
             onChange={handleInput}
           />
         </Form.Group>
@@ -161,17 +156,20 @@ export default function SignUpForm() {
             name="bar"
           />
         </div>
-        <AnimateHeight height={venHeight}>
-          <AddVenueInfo venue={venue} setVenue={setvenue} />
-        </AnimateHeight>
 
         <AnimateHeight height={artHeight}>
           <AddArtistInfo artist={artist} setartist={setartist} />
         </AnimateHeight>
 
-        <Button className="block" type="submit">
-          Submit
-        </Button>
+        <AnimateHeight height={venHeight}>
+          <AddVenueInfo venue={venue} setVenue={setvenue} />
+        </AnimateHeight>
+
+        <div className="btnAlign">
+          <Button className="block" type="submit">
+            Submit
+          </Button>
+        </div>
       </Form>
     </>
   );

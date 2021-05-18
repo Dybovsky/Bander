@@ -12,7 +12,7 @@ export default function SignUpModal() {
   return (
     <>
       <Button onClick={() => handleToggle(true)}>SignUp</Button>
-      <Modal backdrop="static" show={isOpen} centered size="lg">
+      <Modal backdrop="static" show={isOpen} centered size="lg" className="formFont">
         <Modal.Header>
           <Modal.Title>Sign-up</Modal.Title>
         </Modal.Header>
