@@ -9,7 +9,7 @@ import {
 import "./App.css";
 import ArtistProfile from "./components/ArtistProfile";
 import CentralHub from "./components/CentralHub";
-import AuthProvider, { useAuth } from "./context/auth";
+import AuthProvider from "./context/auth";
 import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
 

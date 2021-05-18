@@ -21,32 +21,27 @@ router.post("/createUser", async (req, res) => {
     delete newUser.conPwd;
     newUser.photoURL = createUser.photoURL;
     newUser.uid = createUser.uid;
-
     if (createUser) {
       admin.firestore().collection("users").doc(createUser.uid).set(newUser);
       admin.firestore().collection("artist").doc(createUser.uid).set(artist);
       admin.firestore().collection("venues").doc(createUser.uid).set(venue);
     }
-    
   } catch (err) {
-    console.log(err);
-    res.send(err)
+    res.send(err);
   }
-  const token = admin.auth().createCustomToken()
-  res.send("henlo");
+  const token = await admin.auth().createCustomToken(newUser.uid);
+  res.send({ token, newUser });
 });
 
-/* post login users. */
 router.post("/sessionLogin", async (req, res) => {
-  const idToken = req.body.idToken;
+  const idToken = req.body.token;
   const verify = await admin.auth().verifyIdToken(idToken);
   const userData = await admin
     .firestore()
     .collection("users")
     .doc(verify.uid)
     .get();
-  console.log(userData);
-  res.send({ verify });
+  res.send(userData.data());
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@ import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import { SignUp } from "../firebase/firebase.auth";
 import AnimateHeight from "react-animate-height";
+import { useAuth } from "../context/auth";
 
 export default function SignUpForm() {
   const [validated, setValidated] = useState(false);
@@ -12,7 +13,7 @@ export default function SignUpForm() {
   const [artist, setartist] = useState({});
   const [venHeight, setVenHeight] = useState(0);
   const [artHeight, setArtHeight] = useState(0);
-
+  const { saveToken } = useAuth();
   const handleChecks = (e) => {
     const checked = e.target.checked;
     const name = e.target.name;
@@ -44,19 +45,15 @@ export default function SignUpForm() {
     setNewUser(copy);
   };
 
-  useEffect(() => {
-    console.log(venue);
-    console.log(artist);
-  }, [artist, venue]);
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
     const form = e.currentTarget;
     //filled
     if (form.checkValidity()) {
-      SignUp({ newUser, artist, venue });
       setValidated(true);
+      const login = await SignUp({ newUser, artist, venue });
+      saveToken(login)
     } else {
       //not filled
       setValidated(false);

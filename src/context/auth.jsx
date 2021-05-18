@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-
+import localForage from "localforage";
 export const AuthContext = createContext({
   isLoggedIn: false,
   token: "",
-  setIsLoggedIn: () => {},
+  saveToken: (userObj) => {},
   setToken: () => {},
   setUser: () => {},
+  removeToken: () => {},
   user: {},
   baseURL: "http://localhost:5050",
 });
@@ -15,20 +17,41 @@ export const useAuth = () => {
 };
 
 const AuthProvider = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState({});
   const [user, setUser] = useState({});
   const baseURL = "http://localhost:5050";
+
+  const saveToken = (userObj) => {
+    setUser(userObj.curUser);
+    setToken(userObj.token);
+    localForage.setItem("token", userObj.token);
+    localForage.setItem("user", userObj.curUser);
+  };
+
+  const removeToken = () => {
+    setUser(null);
+    setToken(null);
+    localForage.removeItem("token");
+    localForage.removeItem("user");
+  };
+
+  useEffect(async () => {
+    const temp = await localForage.getItem("token");
+    const userInfo = await localForage.getItem("user");
+    setToken(temp);
+    setUser(userInfo);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn,
         token,
         user,
         baseURL,
-        setIsLoggedIn,
         setToken,
         setUser,
+        saveToken,
+        removeToken
       }}
     >
       {props.children}
