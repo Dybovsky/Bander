@@ -17,11 +17,14 @@ const DemoPage = () => {
         <>
         <div className="fs-2 text-start m-5" style={{ color: "lightsteelblue" }}>
                 <div>Demo Page</div>
-                <span>
+                <span className="demoPageBaseInfo">
                     {/* Get the Artist avatar and contact info from DB */}
-                    {artistAvatar && <img src="https://cdn0.iconfinder.com/data/icons/people-jobs-set-2/128/jobs-10-512.png" alt="Artist Avatar" width="250" height="250"/>}
+                    {artistAvatar && <img src="https://cdn0.iconfinder.com/data/icons/people-jobs-set-2/128/jobs-10-512.png" alt="Artist Avatar"/>}
                     {artistInfos && <div>
-                        Contact infos
+                        Contact infos:
+                        <h2><b><u>Email: Bla@gmail.com</u></b></h2>{/* artistInfos.email */}
+                        <h2><b><u>Phone Number: 123456</u></b></h2>{/* artistInfos.phoneNumber */}
+                        <h2><b><u>Instagram: @test</u></b></h2>{/* artistInfos.instagram */}
                     </div>}
                 </span>
                 <div>

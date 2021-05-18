@@ -21,14 +21,18 @@ const DemoSongs = () => {
     };
 
     return (
-        <>
-        {isTheArtist && <input type="file" onChange={handleVideoUpload}/>}
-        {/* Take next line out when connect it to the DB */}
-        <ReactPlayer url={videoFilePath} controls={true} /> 
-        {displaySongs && <ol>
-        {displaySongs.songs.map((info) => <ReactPlayer key={info.id} url={info.songUrl} controls={true} />)}
-        </ol>}
-        </>
+        <div className="test">
+            <div className="demoPageSongsInfo">
+                {isTheArtist && <input type="file" onChange={handleVideoUpload}/>}
+                {/* Take next line out when connect it to the DB */}
+                <div className='player-wrapper' >
+                    <ReactPlayer className='react-player' url={videoFilePath} controls={true} width='30%'height='100%'/> 
+                </div>
+                {displaySongs && <ol>
+                {displaySongs.songs.map((info) => <div className='player-wrapper' ><ReactPlayer className='react-player' key={info.id} url={info.songUrl} controls={true} width='30%'height='100%'/></div>)}
+                </ol>}
+            </div>
+        </div>
     );
 };
 
