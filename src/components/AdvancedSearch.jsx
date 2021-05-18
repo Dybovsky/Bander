@@ -4,7 +4,30 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import EventsList from "./EventsList";
 
+
 const AdvancedSearch = () => {
+
+    const mockEvents = [
+        {
+            "band_avatar": "https://res.cloudinary.com/urielnaiman/image/upload/v1621364240/kyle-wong-rrHtkX1rLP0-unsplash_tfjdzx.jpg",
+            "band_name": "Rockmind",
+            "location": "Tel-Aviv",
+            "date": "2021-05-19"
+        },
+        {
+            "band_avatar": "https://res.cloudinary.com/urielnaiman/image/upload/v1621364240/austin-wade-YZpuFugdy8Q-unsplash_udxl77.jpg",
+            "band_name": "Popsicle",
+            "location": "Haifa",
+            "date": "2021-06-23"
+        },
+        {
+            "band_avatar": "https://res.cloudinary.com/urielnaiman/image/upload/v1621364237/vidar-nordli-mathisen-qusExK3sba8-unsplash_eichuo.jpg",
+            "band_name": "Mordy Miler",
+            "location": "Jerusalem",
+            "date": "2021-05-29"
+        }
+    ];
+    
     const [data, setData] = useState({});
   const [events, setEvents] = useState([]);
   const auth = useAuth();
@@ -29,10 +52,15 @@ const AdvancedSearch = () => {
     }
   };
 
+  const handleClearEvents = () => {
+    setEvents([]);
+  };
+  
   return (
     <>
-    <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
-          <h2 className="align-self-center"><u>Basic Search Event</u></h2>
+    {mockEvents && <button className="btn btn-primary m-5 justify-self-center" onClick={handleClearEvents}>Back to Search</button>}
+    {!mockEvents && <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
+          <h2 className="align-self-center"><u>Advanced Search Event</u></h2>
           <Link className="btn btn-primary w-50 align-self-center m-1" to="/search">Basic Search</Link>
       <Form
         onSubmit={handleFormSubmit}
@@ -114,10 +142,10 @@ const AdvancedSearch = () => {
         </div>
         </Form.Group>
       </Form>
-      {!events && <h3 className="text-center">Waiting for your search</h3>}
-        </div>
+      {!mockEvents && <h3 className="text-center">Waiting for your search</h3>}
+        </div>}
         <div>
-          {events && <EventsList eventArray={events}/>}
+          {mockEvents && <EventsList eventArray={mockEvents}/>}
         </div>
     </>
   );
