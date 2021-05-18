@@ -38,6 +38,10 @@ const ArtistProfile = () => {
     });
   };
 
+  const demoPage = () => {
+      window.location.href = "http://localhost:3000/artist_profile/:id/DemoPage" // Get user Params and put it here for the ":id"
+  };
+  
   return (
     <>
       <h1>Artist profile</h1>
@@ -116,6 +120,7 @@ const ArtistProfile = () => {
           {!open && (
             <Button onClick={() => saveChanges(updatedUser)}>Save</Button>
           )}
+          <Button onClick={demoPage}>Go to Demo Page</Button>
         </div>
       </div>
     </>
