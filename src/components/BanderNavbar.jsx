@@ -24,7 +24,7 @@ const BanderNavbar = () => {
           <div className="mx-2">
             {token && (<Link component={Button} to="/artist_profile"> Profile </Link>)}
             {token && <Link to="/" onClick={removeToken}>Log Out</Link>}
-            <Link component={Button} to="/event_search" >Search Events</Link>
+            <Link component={Button} to="/search" >Search Events</Link>
             {!token && (<Link onClick={signInGoogle} component={Button} to="/">Sign in Google</Link>)}
             {!token && <SignInEmailModal />}
             {!token && <SignUpModal />}

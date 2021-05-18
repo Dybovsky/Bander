@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import EventsList from "./EventsList";
@@ -23,7 +23,7 @@ const BasicSearch = () => {
     try{
         // const result = await BasicSearch(data, auth.token);
         // setEvents(result.events);
-        alert(`${data.location}, ${data.genre}, ${data.venue}`);
+        alert(`${data.genre}, ${data.venue}`);
     } catch(err){
         alert(err.message);
     }
@@ -41,17 +41,7 @@ const BasicSearch = () => {
         className="formMarg formFont orderItems w-50 text-center align-self-center mt-5"
       >
         <Form.Group>
-        <Form.Label>Location</Form.Label>
-          <Form.Control
-            required
-            minLength={3}
-            type="text"
-            name="location"
-            id="location"
-            placeholder="location"
-            onChange={handleInput}
-          />
-          <Form.Label>Genre</Form.Label>
+         <Form.Label>Genre</Form.Label>
             <Form.Control 
             as="select" 
             name="genre"
