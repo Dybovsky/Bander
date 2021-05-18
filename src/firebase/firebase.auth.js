@@ -1,30 +1,38 @@
 import axios from "axios";
 import firebase from "firebase";
+import localforage from "localforage";
+
 const baseURL = "http://localhost:5050";
 const db = firebase.firestore();
 const fireAuth = firebase.auth();
 
 export async function signInEmail(email, password) {
-  const user = await fireAuth.signInWithEmailAndPassword(email, password);
-  const userSignin = db.collection("users").get(user.user.uid);
+  const userInfo = (await fireAuth.signInWithEmailAndPassword(email, password))
+    .user;
+  const token = (await userInfo.getIdToken()).toString();
+  const verify = await axios.post(baseURL + "/users/sessionLogin", { token });
   fireAuth.signOut();
-  console.log(userSignin);
-  return user.user;
+  const returnObj = { curUser: verify.data, token };
+  return returnObj;
 }
 
 export async function signInGoogle(e) {
-  e.preventDefault();
   const provider = new firebase.auth.GoogleAuthProvider();
   const userInfo = await fireAuth.signInWithPopup(provider);
-  const idToken = (await userInfo.user.getIdToken()).toString();
-  const verify = await axios.post(baseURL + "/users/sessionLogin", { idToken });
+  const token = await userInfo.user.getIdToken();
+  const verify = await axios.post(baseURL + "/users/sessionLogin", { token });
   fireAuth.signOut();
-  console.log(verify.data);
+  const returnObj = { curUser: verify.data, token };
+  return returnObj;
 }
 
 export async function SignUp(payload) {
-  console.log(payload)
-  const createUser = await axios.post(baseURL +"/users/createUser", payload)
-  console.log(createUser.data);
+  const createUser = await axios.post(baseURL + "/users/createUser", payload);
+  const curUser = createUser.data.newUser;
+  const verToken = await firebase
+    .auth()
+    .signInWithCustomToken(createUser.data.token);
+  const token = await verToken.user.getIdToken();
+  const returnObj = { curUser, token };
+  return returnObj;
 }
-

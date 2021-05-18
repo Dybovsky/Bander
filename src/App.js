@@ -9,10 +9,10 @@ import {
 import "./App.css";
 import ArtistProfile from "./components/ArtistProfile";
 import CentralHub from "./components/CentralHub";
-import AuthProvider, { useAuth } from "./context/auth";
+import AuthProvider from "./context/auth";
 import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
-import EventSearchForm from "./components/EventSearchForm";
+import BasicSearch from "./components/BasicSearch";
 
 const ContextApp = () => {
 
@@ -25,7 +25,7 @@ const ContextApp = () => {
             <CentralHub />
           </Route>
           <Route path="/event_search">
-            <EventSearchForm />
+            <BasicSearch />
           </Route>
           <Route path="/artist_profile/:id">
             <ArtistProfile />

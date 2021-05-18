@@ -1,48 +1,102 @@
 import { useState } from "react";
+import { Form, Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/auth";
+import EventsList from "./EventsList";
 
 const BasicSearch = () => {
-        const [genre, setGenre] = useState("");
-        const [type, setType] = useState("");
-        const [array, setArray] = useState([]);
+  const [data, setData] = useState({});
+  const [events, setEvents] = useState([]);
+  const auth = useAuth();
 
-        const handleOnSubmit = async (genre, type) => {
-            const data = { genre, type };
-            try{
-                const response = await getBasicSearchArray(data);
-                setArray(response.newArray);
-            } catch (err) {
-                alert(err);
-            }
-          };
-    
-    return (
-        <>
-        <div className="card h-75 shadow rounded w-75 align-self-center" style={{marginTop:"100px"}}>
-          <div className="d-flex justify-content-around">
-          <h2 className="align-self-center"><u>Search by animal type</u></h2>
-          <Link className="btn btn-primary m-1" to="/search/advanced">Advanced Search</Link>
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const copy = { ...data };
+    copy[name] = value;
+    setData(copy);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    try{
+        // const result = await BasicSearch(data, auth.token);
+        // setEvents(result.events);
+        alert(`${data.location}, ${data.genre}, ${data.venue}`);
+    } catch(err){
+        alert(err.message);
+    }
+  };
+
+  return (
+    <>
+    <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
+          <div className="d-flex flex-column justify-content-around">
+          <h2 className="align-self-center"><u>Basic Search Event</u></h2>
+          <Link className="btn btn-primary w-50 align-self-center m-1" to="/search/advanced">Advanced Search</Link>
           </div>
-          <form className= "align-self-center justify-self-center"  onSubmit={handleSubmit(handleOnSubmit)}>
-            <div className="form-row align-self-center " >
-                <div className="col-auto my-1">
-                <label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Animal Type</label>
-                    <select {...register("type")} defaultValue='' className="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    <option>Choose...</option>
-                    <option value="cat">Cat</option>
-                    <option value="dog">Dog</option>
-                    </select>
-                </div>
-                <div className="col-auto my-1">
-                <button type="submit" className="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </form>
-        {!pets && <h3 className="text-center">choose Type to search</h3>}
+      <Form
+        onSubmit={handleFormSubmit}
+        className="formMarg formFont orderItems w-50 text-center align-self-center mt-5"
+      >
+        <Form.Group>
+        <Form.Label>Location</Form.Label>
+          <Form.Control
+            required
+            minLength={3}
+            type="text"
+            name="location"
+            id="location"
+            placeholder="location"
+            onChange={handleInput}
+          />
+          <Form.Label>Genre</Form.Label>
+            <Form.Control 
+            as="select" 
+            name="genre"
+            id="genre" 
+            onChange={handleInput}
+            >
+                <option>Choose...</option>
+                <option value="rock">Rock</option>
+                <option value="metal">Metal</option>
+                <option value="pop">Pop</option>
+                <option value="blues">Blues</option>
+                <option value="jazz">Jazz</option>
+                <option value="country">Country</option>
+                <option value="traditional">Traditional</option>
+                <option value="rap">Rap</option>
+            </Form.Control>
+          <Form.Label>Venue Type</Form.Label>
+          <Form.Control 
+            as="select" 
+            name="venue"
+            id="venue" 
+            onChange={handleInput}
+            >
+                <option>Choose...</option>
+                <option value="cafe">Cafe'</option>
+                <option value="bar">Bar</option>
+                <option value="pub">Pub</option>
+                <option value="restaurant">Restaurant</option>
+                <option value="concert">Concert</option>
+            </Form.Control>
+
+        <div className="btnAlign">
+          <Button className="block" type="submit">
+            Submit
+          </Button>
+        </div>
+        </Form.Group>
+      </Form>
+      {!events && <h3 className="text-center">Waiting for your search</h3>}
         </div>
         <div>
-          {pets && <CardsList petsArray={pets}/>}
+          {events && <EventsList eventArray={events}/>}
         </div>
-        </>
-    );
+    </>
+  );
 }
+
 export default BasicSearch;

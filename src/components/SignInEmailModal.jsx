@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { useAuth } from "../context/auth";
 import { signInEmail } from "../firebase/firebase.auth";
 
 export default function SignInEmailModal() {
   const [open, setOpen] = useState(false);
   const [pwd, setpwd] = useState(null);
   const [mail, setmail] = useState(null);
+  const { saveToken } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userInfo = await signInEmail(mail, pwd);
-    console.log(userInfo);
+    saveToken(userInfo);
   };
 
   return (
     <>
-      <Button className="mx-2" onClick={() => setOpen(true)}>
-        Sign in Email
-      </Button>
+      <Button onClick={() => setOpen(true)}>Sign in Email</Button>
       <Modal show={open}>
         <Form className="p-3" onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
