@@ -6,8 +6,7 @@ module.exports = {
      userCreationValidators:[
         body('email').notEmpty().isEmail().custom(async (email) => {
           const existingUser =
-            await admin.auth().getUserByEmail(email)
-      
+            await admin.auth().getUserByEmail(email)     
           if (existingUser) {
             throw new Error('Email already in use')
           }
@@ -22,8 +21,19 @@ module.exports = {
              throw new Error("Passwords don't match")
            }
          }),
-         body('userType').notEmpty().isInt(['artist','owner'])
-      ]
+         body('userType').notEmpty().isIn(['artist','owner'])
+      ],
+      artistValidators:[body('bio').notEmpty().isLength({max:3000}),
+                        body('Instagram').isURL(),
+                        body('kosher')],
+      barOwnerValidators: [body('eName').notEmpty(),
+      body('eTyoe').notEmpty(),
+      body('dOpen').notEmpty().isInt(),
+      body('hOpen').notEmpty().isInt(),
+      body('adress').notEmpty(),
+      body('eBio').notEmpty().isLength({max:3000}),
+      body('Instagram').isURL(),
+    ]
 }
 
 
