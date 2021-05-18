@@ -7,8 +7,7 @@ admin.initializeApp({
 });
 
 router.post("/createUser", async (req, res) => {
-  const payload = req.body;
-  const { newUser, artist, venue } = payload;
+  const { newUser, artist, venue } = req.body;
   const createToken = {
     email: newUser.email,
     password: newUser.pwd,

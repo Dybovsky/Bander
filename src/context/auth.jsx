@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 import localForage from "localforage";
+
 export const AuthContext = createContext({
   isLoggedIn: false,
   token: "",

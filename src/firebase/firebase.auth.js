@@ -1,9 +1,7 @@
 import axios from "axios";
 import firebase from "firebase";
-import localforage from "localforage";
 
 const baseURL = "http://localhost:5050";
-const db = firebase.firestore();
 const fireAuth = firebase.auth();
 
 export async function signInEmail(email, password) {
@@ -13,10 +11,11 @@ export async function signInEmail(email, password) {
   const verify = await axios.post(baseURL + "/users/sessionLogin", { token });
   fireAuth.signOut();
   const returnObj = { curUser: verify.data, token };
+  console.log(returnObj)
   return returnObj;
 }
 
-export async function signInGoogle(e) {
+export async function signInGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   const userInfo = await fireAuth.signInWithPopup(provider);
   const token = await userInfo.user.getIdToken();

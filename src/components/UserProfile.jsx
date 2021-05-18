@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../context/auth";
 import { Button, Form } from "react-bootstrap";
 
-const ArtistProfile = () => {
-  const { user, artist } = useAuth();
+const UserProfile = () => {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const [art, setart] = useState({});
+  const [artist, setartist] = useState({})
   
   const saveChanges = () => {
     setOpen(!open);
@@ -17,12 +17,12 @@ const ArtistProfile = () => {
     const key = e.target.name;
     const copy = { ...artist };
     copy[key] = value;
-    setart(copy);
+    setartist(copy);
   };
 
   return (
     <>
-      <h1>Artist profile</h1>
+      <h1>User profile</h1>
       <div className="back">
         <div>
           <img src={artist.image} alt="avatar" className="avatar" />
@@ -102,4 +102,4 @@ const ArtistProfile = () => {
   );
 };
 
-export default ArtistProfile;
+export default UserProfile;

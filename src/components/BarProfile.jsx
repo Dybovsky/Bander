@@ -1,34 +1,20 @@
 import { useState } from "react";
 // import { useAuth } from "../context/auth";
 import { Button, Form } from "react-bootstrap";
-import { mocBar } from "../mocData/mocUsers";
-
-// const mocBar = {
-//     image: "/TGIF.jpeg",
-//     company: "TGI Friday's",
-//     email: "tgi@f.com",
-//     type: "bar",
-//     address: "مصطفى طلعت درب السماكين،",
-//     cuisine: ["american", "burgers", "cocktails"],
-//     password: "123", //hash
-//     passwordCheck: "123", //hash
-//   };
-
-const bar = mocBar;
 
 const BarProfile = () => {
   //   const auth = useAuth();
   const [open, setOpen] = useState(false);
   //   const bar = auth.user;
 
-  const [updatedUser, setUpdatedUser] = useState(bar);
+  const [updatedUser, setUpdatedUser] = useState(null);
 
   const saveChanges = (user) => {
     console.log("updated user", updatedUser);
 
     //send to db
   };
-
+  const bar = {}
   const updateUser = (e) => {
     setUpdatedUser({
       ...updatedUser,
