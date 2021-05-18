@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import DemoSongs from "./DemoSongs";
+import { Card } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DemoPage = () => {
 
@@ -20,11 +22,12 @@ const DemoPage = () => {
                 <span className="demoPageBaseInfo">
                     {/* Get the Artist avatar and contact info from DB */}
                     {artistAvatar && <img src="https://cdn0.iconfinder.com/data/icons/people-jobs-set-2/128/jobs-10-512.png" alt="Artist Avatar"/>}
-                    {artistInfos && <div>
-                        Contact infos:
-                        <h2><b><u>Email: Bla@gmail.com</u></b></h2>{/* artistInfos.email */}
-                        <h2><b><u>Phone Number: 123456</u></b></h2>{/* artistInfos.phoneNumber */}
-                        <h2><b><u>Instagram: @test</u></b></h2>{/* artistInfos.instagram */}
+                    {artistInfos && <div class="card" style={{width: "35rem", height: "45rem"}}>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Phone Number : </li>
+                            <li class="list-group-item">E-mail : </li>
+                            <li class="list-group-item">Instagram : </li>
+                        </ul>
                     </div>}
                 </span>
                 <div>

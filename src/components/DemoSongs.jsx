@@ -15,8 +15,8 @@ const DemoSongs = () => {
     const handleVideoUpload = (event) => {
     setVideoFilePath(URL.createObjectURL(event.target.files[0]));
     {/* Take next line out when connect it to the DB */}
-    console.log(URL.createObjectURL(event.target.files[0]));
-    // send song URL to the DB
+    console.log(event.target.files[0]);
+    // send song file to the DB
     // window.location.reload();
     };
 
@@ -24,7 +24,7 @@ const DemoSongs = () => {
         <div className="test">
             <div className="demoPageSongsInfo">
                 {isTheArtist && <input type="file" onChange={handleVideoUpload}/>}
-                {/* Take next line out when connect it to the DB */}
+                {/* Take next 3 lines out when connect it to the DB */}
                 <div className='player-wrapper' >
                     <ReactPlayer className='react-player' url={videoFilePath} controls={true} width='30%'height='100%'/> 
                 </div>
