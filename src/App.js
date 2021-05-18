@@ -12,6 +12,7 @@ import CentralHub from "./components/CentralHub";
 import AuthProvider, { useAuth } from "./context/auth";
 import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
+import EventSearchForm from "./components/EventSearchForm";
 
 const ContextApp = () => {
 
@@ -23,8 +24,8 @@ const ContextApp = () => {
           <Route path="/home">
             <CentralHub />
           </Route>
-          <Route path="/">
-            <Redirect to="/home" />
+          <Route path="/event_search">
+            <EventSearchForm />
           </Route>
           <Route path="/artist_profile/:id">
             <ArtistProfile />
