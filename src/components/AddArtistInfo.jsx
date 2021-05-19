@@ -11,6 +11,7 @@ const AddVenueInfo = (props) => {
     copy[key] = value;
     setartist(copy);
   };
+  
   return (
     <>
       <Form className="mx-5 formMarg">

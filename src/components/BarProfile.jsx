@@ -1,20 +1,23 @@
-import { useState } from "react";
-// import { useAuth } from "../context/auth";
-import { Button, Form } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/auth";
+import { Button, Form ,Link} from "react-bootstrap";
 
 const BarProfile = () => {
-  //   const auth = useAuth();
+  // const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const [bar, setbar] = useState({})
   //   const bar = auth.user;
 
   const [updatedUser, setUpdatedUser] = useState(null);
 
   const saveChanges = (user) => {
     console.log("updated user", updatedUser);
-
     //send to db
   };
-  const bar = {}
+
+  useEffect(() => {
+    // retrive from db 
+  }, [])
   const updateUser = (e) => {
     setUpdatedUser({
       ...updatedUser,

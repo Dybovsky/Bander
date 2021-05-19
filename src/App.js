@@ -35,13 +35,13 @@ const ContextApp = () => {
           <Route path="/search">
             <BasicSearch />
           </Route>
-          <Route path="/artist_profile/:id/demoPage">
+          <Route path="/userProfile/:id/demoPage">
             <DemoPage />
           </Route>
-          <Route path="/artist_profile/:id">
+          <Route path="/userProfile/:id">
             <UserProfile />
           </Route>
-          <Route path="/bar_profile/:id">
+          <Route path="/barProfile/:id">
             <BarProfile />
           </Route>
         </Switch>
