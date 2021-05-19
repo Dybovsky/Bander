@@ -20,10 +20,10 @@ export async function uploadCloud(avatar, userCreator, cb) {
       task.on(
         "state_changed",
         function progress(snapshot) {
-          const precentage = Math.ceil(
+          const percentage = Math.ceil(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          if (cb) cb(precentage);
+          if (cb) cb(percentage);
         },
 
         function error(err) {
@@ -48,4 +48,22 @@ export async function uploadCloud(avatar, userCreator, cb) {
 export async function userUpdate(userObj) {
   const { curUser } = userObj;
   firebase.firestore().collection("users").doc(curUser.uid).update(curUser);
+}
+
+export async function searchAdvance(searchObj) {
+  const { location, date, venType, genre } = searchObj;
+  const result = await firebase.firestore().collection("events")
+            .where("location", "==", location)
+            .where("date", "==", date)
+            .where("venType", "==", venType)
+            .where("genre", "==", genre).get().limit(3);
+  return result.querySnapshot;
+}
+
+export async function searchBasic(searchObj) {
+  const { venType, genre } = searchObj;
+  const result = await firebase.firestore().collection("events")
+            .where("venType", "==", venType)
+            .where("genre", "==", genre).get().limit(3);
+  return result.querySnapshot;
 }

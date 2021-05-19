@@ -1,92 +1,131 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/auth";
-import { Button, Form ,Link} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 const BarProfile = () => {
-  // const { user } = useAuth();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [updatedBar, setUpdatedBar] = useState();
   const [bar, setbar] = useState({})
-  //   const bar = auth.user;
-
-  const [updatedUser, setUpdatedUser] = useState(null);
-
-  const saveChanges = (user) => {
-    console.log("updated user", updatedUser);
-    //send to db
+  
+  const saveChanges = (bar) => {
+    console.log("updated bar", updatedBar);
   };
 
   useEffect(() => {
-    // retrive from db 
+    //Get db bar data
   }, [])
-  const updateUser = (e) => {
-    setUpdatedUser({
-      ...updatedUser,
+
+  const updateBar = (e) => {
+    setUpdatedBar({
+      ...updatedBar,
       [e.target.name]: e.target.value,
     });
   };
 
   return (
-    <div>
-      <h1>Bar profile</h1>
+    <div className="card shadow rounded w-75 p-3 m-auto mt-5 bg-light d-block">
+      <h1>Venue</h1>
+      <br />
       <div>
-        <img src={bar.image} alt="avatar" />
-        <Form>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={bar.company}
-            onChange={updateUser}
-            name="company"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={bar.address}
-            onChange={updateUser}
-            name="address"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={bar.cuisine}
-            onChange={updateUser}
-            name="cuisine"
-          ></Form.Control>
-          <Form.Control
-            readOnly={open}
-            plaintext={open}
-            defaultValue={bar.email}
-            onChange={updateUser}
-            name="email"
-          ></Form.Control>
-
-          {!open && (
+        <Form className="m-1 p-1">
+          <Form.Label className="m-1 p-1">
+            <h4>Type:</h4>
             <Form.Control
+              className="m-1 p-1"
               readOnly={open}
               plaintext={open}
-              type="password"
-              placeholder="Password"
-              defaultValue=""
-              onChange={updateUser}
-              name="password"
+              defaultValue={bar.type}
+              onChange={updateBar}
+              name="type"
             ></Form.Control>
-          )}
-          {!open && (
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Company:</h4>
             <Form.Control
+              className="m-1 p-1"
               readOnly={open}
               plaintext={open}
-              type="password"
-              placeholder="Password check"
-              defaultValue=""
-              onChange={updateUser}
-              name="passwordCheck"
+              defaultValue={bar.name}
+              onChange={updateBar}
+              name="name"
             ></Form.Control>
-          )}
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Address:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.address}
+              onChange={updateBar}
+              name="address"
+            ></Form.Control>
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Site:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.website}
+              onChange={updateBar}
+              name="website"
+            ></Form.Control>
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Opening days:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.opDays}
+              onChange={updateBar}
+              name="opDays"
+            ></Form.Control>
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Opening Hours:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.opHours}
+              onChange={updateBar}
+              name="opHours"
+            ></Form.Control>
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Bio:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.bio}
+              onChange={updateBar}
+              name="bio"
+            ></Form.Control>
+          </Form.Label>
+          <Form.Label className="m-1 p-1">
+            <h4>Kosher:</h4>
+            <Form.Control
+              className="m-1 p-1"
+              readOnly={open}
+              plaintext={open}
+              defaultValue={bar.kosher}
+              onChange={updateBar}
+              name="kosher"
+            ></Form.Control>
+          </Form.Label>
         </Form>
       </div>
-
-      <Button onClick={() => setOpen(!open)}>Edit account</Button>
-      {!open && <Button onClick={() => saveChanges(updatedUser)}>Save</Button>}
+      <Button className="m-2 " onClick={() => setOpen(!open)}>
+        Edit venue
+      </Button>
+      {!open && (
+        <Button className="m-2 " onClick={() => saveChanges(updatedBar)}>
+          Save
+        </Button>
+      )}
     </div>
   );
 };

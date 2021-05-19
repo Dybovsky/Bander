@@ -16,6 +16,9 @@ import UserProfile from "./components/UserProfile";
 import BasicSearch from "./components/BasicSearch";
 import AdvancedSearch from "./components/AdvancedSearch";
 import DemoPage from "./components/DemoPage";
+import AddPost from './components/AddPost'
+
+
 
 const ContextApp = () => {
   return (
@@ -28,6 +31,9 @@ const ContextApp = () => {
           </Route>
           <Route path="/home">
             <CentralHub />
+          </Route>
+          <Route path="/addPost">
+            <AddPost />
           </Route>
           <Route path="/search/advanced">
             <AdvancedSearch />

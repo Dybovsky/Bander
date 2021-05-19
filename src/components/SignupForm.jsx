@@ -7,6 +7,7 @@ import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import AnimateHeight from "react-animate-height";
 
+
 export default function SignUpForm() {
   const [avatar, setAvatar] = useState(null);
   const [validated, setValidated] = useState(false);

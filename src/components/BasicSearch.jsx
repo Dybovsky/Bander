@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import { searchBasic } from "../firebase/firebase.api";
 import EventsList from "./EventsList";
 
 const BasicSearch = () => {
   const [data, setData] = useState({});
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState();
   const { user } = useAuth();
 
   const handleInput = (e) => {
@@ -21,17 +22,21 @@ const BasicSearch = () => {
     e.stopPropagation();
     e.preventDefault();
     try {
-      // const result = await BasicSearch(data, auth.token);
-      // setEvents(result.events);
-      alert(`${data.genre}, ${data.venue}`);
+      const result = await searchBasic(data);
+      setEvents(result);
     } catch (err) {
       alert(err.message);
     }
   };
 
+  const handleClearEvents = () => {
+    setEvents();
+  };
+
   return (
     <>
-      <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
+    {events && <button className="btn btn-primary m-5 justify-self-center" onClick={handleClearEvents}>Back to Search</button>}
+      {!events && <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
         <div className="d-flex flex-column justify-content-around">
           <h2 className="align-self-center">
             <u>Search for Event</u>
@@ -68,16 +73,19 @@ const BasicSearch = () => {
             <Form.Label>Venue Type</Form.Label>
             <Form.Control
               as="select"
-              name="venue"
-              id="venue"
+              name="venType"
+              id="venType"
               onChange={handleInput}
             >
               <option>Choose...</option>
               <option value="cafe">Cafe'</option>
               <option value="bar">Bar</option>
-              <option value="pub">Pub</option>
               <option value="restaurant">Restaurant</option>
               <option value="concert">Concert</option>
+              <option value="concert">Club</option>
+              <option value="concert">Theater</option>
+              <option value="concert">Stand-up</option>
+              <option value="concert">Open Space</option>
             </Form.Control>
 
             <div className="btnAlign">
@@ -87,8 +95,7 @@ const BasicSearch = () => {
             </div>
           </Form.Group>
         </Form>
-        {!events && <h3 className="text-center">Waiting for your search</h3>}
-      </div>
+      </div>}
       <div>{events && <EventsList eventArray={events} />}</div>
     </>
   );

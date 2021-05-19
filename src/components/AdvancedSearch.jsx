@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import { searchAdvance } from "../firebase/firebase.api";
 import EventsList from "./EventsList";
 
 
@@ -23,8 +24,8 @@ const AdvancedSearch = () => {
     e.stopPropagation();
     e.preventDefault();
     try{
-        const result = await searchAdvance(data, auth.token);
-        setEvents(result.events);
+        const result = await searchAdvance(data);
+        setEvents(result);
       } catch(err){
         alert(err.message);
     }
@@ -113,15 +114,14 @@ const AdvancedSearch = () => {
 
             <div className="btnAlign">
             <Button className="block" type="submit">
-                Submit
+                Search
             </Button>
             </div>
             </div>
         </div>
         </Form.Group>
       </Form>
-      {!events && <h3 className="text-center">Waiting for your search</h3>}
-        </div>}
+       </div>}
         <div>
           {events && <EventsList eventArray={events}/>}
         </div>
