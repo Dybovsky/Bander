@@ -12,7 +12,7 @@ const genres = [
   "Traditional",
   "Rap",
 ];
-const venues = ["Bar", "Club", "Theatre", "StandUp", "Open space", "Cafe", "Concert", "Restaurant"]
+const venues = ["Bar", "Club", "Theater", "StandUp", "Dance Bar", "Cafe", "Concert", "Restaurant"]
 
 const AddPost = () => {
   const [post, setPost] = useState({});

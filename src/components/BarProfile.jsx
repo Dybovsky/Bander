@@ -4,14 +4,15 @@ import { Button, Form } from "react-bootstrap";
 
 const BarProfile = () => {
   const [open, setOpen] = useState(true);
-  const [updatedBar, setUpdatedBar] = useState(bar);
+  const [updatedBar, setUpdatedBar] = useState();
   const [bar, setbar] = useState({})
+  
   const saveChanges = (bar) => {
     console.log("updated bar", updatedBar);
   };
 
   useEffect(() => {
-    //get db bar data
+    //Get db bar data
   }, [])
 
   const updateBar = (e) => {
@@ -22,7 +23,7 @@ const BarProfile = () => {
   };
 
   return (
-    <div className="card h-75 shadow rounded w-75 p-3 m-auto mt-5 bg-light d-block">
+    <div className="card shadow rounded w-75 p-3 m-auto mt-5 bg-light d-block">
       <h1>Venue</h1>
       <br />
       <div>
