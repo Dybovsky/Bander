@@ -6,7 +6,7 @@ import { uploadCloud, userUpdate } from "../firebase/firebase.api";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import AnimateHeight from "react-animate-height";
-import { useAuth } from "../context/auth";
+
 
 export default function SignUpForm() {
   const [avatar, setAvatar] = useState(null);

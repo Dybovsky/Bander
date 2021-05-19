@@ -17,7 +17,7 @@ const UserProfile = () => {
     const curUser = { ...user };
     curUser.photoURL = photoURL;
     userUpdate({ curUser });
-    saveToken({token, curUser})
+    saveToken({ token, curUser });
   };
 
   useEffect(async () => {
