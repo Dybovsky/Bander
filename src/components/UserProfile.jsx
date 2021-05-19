@@ -17,7 +17,7 @@ const UserProfile = () => {
     const curUser = { ...user };
     curUser.photoURL = photoURL;
     userUpdate({ curUser });
-    saveToken({token, curUser})
+    saveToken({ token, curUser });
   };
 
   useEffect(async () => {
@@ -125,6 +125,9 @@ const UserProfile = () => {
               </div>
             </Collapse>
             <Button onClick={() => setOpen(!open)}>Edit account</Button>
+            <Link component={Button} to={`/artist_profile/${id}/DemoPage`}>
+              Go to Demo Page
+            </Link>
           </Form>
         </Card.Body>
       </Card>
