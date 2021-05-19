@@ -14,6 +14,8 @@ import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
 import UserProfile from "./components/UserProfile";
 
+
+
 const ContextApp = () => {
   return (
     <Router>
