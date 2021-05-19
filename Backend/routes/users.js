@@ -3,7 +3,7 @@ var router = express.Router();
 const admin = require("firebase-admin");
 const serviceAccount = require("../serviceAccountKey.json");
 const { userCreationValidators } = require('../validation');
-const { body, validationResult } = require('express-validator')
+const {validationResult } = require('express-validator')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -11,6 +11,11 @@ admin.initializeApp({
 
 router.post("/createUser", async (req, res) => {
   const { newUser, artist, venue } = req.body;
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()})
+  }
+  console.log(req.body)
   const createToken = {
     email: newUser.email,
     password: newUser.pwd,
