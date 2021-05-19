@@ -16,6 +16,7 @@ import UserProfile from "./components/UserProfile";
 import BasicSearch from "./components/BasicSearch";
 import AdvancedSearch from "./components/AdvancedSearch";
 import DemoPage from "./components/DemoPage";
+import AddPost from './components/AddPost'
 
 
 
@@ -31,19 +32,22 @@ const ContextApp = () => {
           <Route path="/home">
             <CentralHub />
           </Route>
+          <Route path="/addPost">
+            <AddPost />
+          </Route>
           <Route path="/search/advanced">
             <AdvancedSearch />
           </Route>
           <Route path="/search">
             <BasicSearch />
           </Route>
-          <Route path="/artist_profile/:id/demoPage">
+          <Route path="/userProfile/:id/demoPage">
             <DemoPage />
           </Route>
-          <Route path="/artist_profile/:id">
+          <Route path="/userProfile/:id">
             <UserProfile />
           </Route>
-          <Route path="/bar_profile/:id">
+          <Route path="/barProfile/:id">
             <BarProfile />
           </Route>
         </Switch>

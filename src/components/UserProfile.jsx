@@ -4,6 +4,7 @@ import { Button, Form, Card, Collapse } from "react-bootstrap";
 import axios from "axios";
 import { useParams } from "react-router";
 import { uploadCloud, userUpdate } from "../firebase/firebase.api";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const { user, baseURL, saveToken, token } = useAuth();
@@ -125,7 +126,7 @@ const UserProfile = () => {
               </div>
             </Collapse>
             <Button onClick={() => setOpen(!open)}>Edit account</Button>
-            <Link component={Button} to={`/artist_profile/${id}/DemoPage`}>
+            <Link component={Button} to={`/userProfile/${id}/DemoPage`}>
               Go to Demo Page
             </Link>
           </Form>

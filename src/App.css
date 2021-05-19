@@ -25,16 +25,9 @@ body {
   font-family: "Noto Sans JP";
 }
 
-.resizeAvatar{
+.resizeAvatar {
   height: auto;
   width: 300px;
-}
-h1 {
-  color: #111;
-  font-family: "Open Sans", sans-serif;
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 32px;
 }
 
 .demoPageBaseInfo {
@@ -42,8 +35,8 @@ h1 {
   justify-content: space-between;
 }
 
-.demoPageBaseInfo div{
-  background-color: rgba(81, 100, 143, 0.315) ;
+.demoPageBaseInfo div {
+  background-color: rgba(81, 100, 143, 0.315);
   border-radius: 50px;
   display: flex;
   padding: 10px;
@@ -56,13 +49,13 @@ h1 {
   font-family: "Open Sans", sans-serif;
 }
 
-.demoPageBaseInfo img{
+.demoPageBaseInfo img {
   width: 350px;
   height: 350px;
   margin: 100px;
 }
 
-.demoPageSongsInfo{
+.demoPageSongsInfo {
   display: flex;
   flex-direction: column;
 }
@@ -76,4 +69,23 @@ h1 {
   top: 0%;
   left: 0%;
   margin: 10px;
+}
+
+.main {
+  background-color: aliceblue;
+  width: 35rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  border-radius: 5px;
+  padding: 20px;
+}
+.main input,
+.main textarea,
+.main select {
+  padding: 10px;
+  margin: 10px;
+}
+.postMain {
+  background-color: aliceblue;
 }
