@@ -23,6 +23,7 @@ const BanderNavbar = () => {
         </Link>
         <div className="mx-2 d-flex justify-content-around gap-3">
           {token && <Link component={Button} to={`/artist_profile/${user.uid}/`}>Profile</Link>}
+          {token && <Link component={Button} to="/search">Search</Link>}
           {token && <Button onClick={removeToken}>Log Out</Button>}
           {!token && <Button onClick={handleGoogle}>Sign in Google</Button>}
           {!token && <SignInEmailModal />}

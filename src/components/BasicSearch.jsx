@@ -34,10 +34,10 @@ const BasicSearch = () => {
       <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
         <div className="d-flex flex-column justify-content-around">
           <h2 className="align-self-center">
-            <u>Basic Search Event</u>
+            <u>Search for Event</u>
           </h2>
           <Link
-            className="btn btn-primary w-50 align-self-center m-1"
+            className="btn btn-primary w-25 align-self-center m-1"
             to="/search/advanced"
           >
             Advanced Search
@@ -82,7 +82,7 @@ const BasicSearch = () => {
 
             <div className="btnAlign">
               <Button className="block" type="submit">
-                Submit
+                Search
               </Button>
             </div>
           </Form.Group>
