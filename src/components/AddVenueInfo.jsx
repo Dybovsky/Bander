@@ -6,7 +6,7 @@ const AddVenueInfo = (props) => {
   const [daysList, setDaysList] = useState([]);
   //  const [hoursList, setHoursList]
   const handleChange = (e) => {
-    if (e.target.name === "days") {
+    if (e.target.name === "opDays") {
       const copy = [...daysList];
       if (e.target.checked) {
         copy.push(e.target.value);
@@ -22,11 +22,8 @@ const AddVenueInfo = (props) => {
       ...venue,
       [e.target.name]: e.target.value,
     });
-    venue.days = daysList;
-    // const value = e.target.value;
-    // const key = e.target.name;
-    // copy[key] = value;
-    // setVenue(copy);
+    venue.opDays = daysList;
+
     console.log("est", venue);
   };
   const venues = [
@@ -89,7 +86,7 @@ const AddVenueInfo = (props) => {
             onChange={handleChange}
           />
           <Form.Label>Choose type:</Form.Label>
-          <Form.Control as="select" onChange={handleChange} name="venue">
+          <Form.Control as="select" onChange={handleChange} name="type">
             {venues.map((venue) => {
               return <option key={venue}>{venue}</option>;
             })}
@@ -101,7 +98,7 @@ const AddVenueInfo = (props) => {
                 <Form.Check
                   inline
                   label={day}
-                  name="days"
+                  name="opDays"
                   type="checkbox"
                   value={day}
                   onChange={handleChange}
