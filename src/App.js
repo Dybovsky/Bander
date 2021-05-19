@@ -37,7 +37,7 @@ const ContextApp = () => {
           <Route path="/search">
             <BasicSearch />
           </Route>
-          <Route path="/userProfile/:id/demoPage">
+          <Route path="/useProfile/:id/DemoPage">
             <DemoPage />
           </Route>
           <Route path="/userProfile/:id">

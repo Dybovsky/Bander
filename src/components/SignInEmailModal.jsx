@@ -8,11 +8,25 @@ export default function SignInEmailModal() {
   const [pwd, setpwd] = useState(null);
   const [mail, setmail] = useState(null);
   const { saveToken } = useAuth();
+  const [alert, setAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userInfo = await signInEmail(mail, pwd);
-    saveToken(userInfo);
+    if (mail !== null && pwd !== null) {
+      try {
+        setAlert(false)
+        const userInfo = await signInEmail(mail, pwd);
+        saveToken(userInfo);
+      } catch (error) {
+        setAlert(true)
+        setAlertMsg(error.message)
+
+      }
+    } else {
+      setAlert(true)
+      setAlertMsg("Please insert an E-mail and a Password")
+    }
   };
 
   return (
@@ -22,6 +36,7 @@ export default function SignInEmailModal() {
         <Form className="p-3" onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
+            {alert && <h5>{alertMsg}</h5>}
             <Form.Control
               onChange={(e) => setmail(e.target.value)}
               type="email"
@@ -44,7 +59,7 @@ export default function SignInEmailModal() {
             Log in
           </Button>
         </Form>
-        <Button className="m-1" onClick={() => setOpen(false)}>
+        <Button className="m-1" onClick={() => {setOpen(false); setAlert(false)}}>
           close
         </Button>
       </Modal>

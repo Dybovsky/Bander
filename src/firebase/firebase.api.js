@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 
 export async function uploadCloud(avatar, userCreator, cb) {
   try {
-    console.log(avatar);
     const cloud = firebase.storage();
     const userId = firebase.auth().currentUser.uid;
     const userFireDoc = firebase.firestore().collection("users").doc(userId);

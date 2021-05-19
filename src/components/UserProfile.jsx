@@ -12,13 +12,21 @@ const UserProfile = () => {
   const [open, setOpen] = useState(true);
   const [artist, setartist] = useState({});
   const [avatar, setAvatar] = useState(null);
+  const [alert, setAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState();
 
   const saveChanges = async () => {
-    const photoURL = await uploadCloud(avatar, setAvatar, false);
-    const curUser = { ...user };
-    curUser.photoURL = photoURL;
-    userUpdate({ curUser });
-    saveToken({ token, curUser });
+    try {
+      setAlert(false);
+      const photoURL = await uploadCloud(avatar, setAvatar, false);
+      const curUser = { ...user };
+      curUser.photoURL = photoURL;
+      userUpdate({ curUser });
+      saveToken({ token, curUser });
+    } catch (error) {
+      setAlert(true);
+      setAlertMsg(error.message);
+    }
   };
 
   useEffect(async () => {
@@ -36,6 +44,7 @@ const UserProfile = () => {
 
   return (
     <div className="d-flex justify-content-center">
+      {alert && <h5>{alertMsg}</h5>}
       <Card border="dark" className="w-50 mt-3">
         <Card.Img
           src={user.photoURL}
@@ -126,7 +135,7 @@ const UserProfile = () => {
               </div>
             </Collapse>
             <Button onClick={() => setOpen(!open)}>Edit account</Button>
-            <Link component={Button} to={`/artist_profile/${id}/DemoPage`}>
+            <Link component={Button} to={`/useProfile/${id}/DemoPage`}>
               Go to Demo Page
             </Link>
           </Form>
