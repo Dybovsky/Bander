@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../context/auth";
 import { Button, Form } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
 
 const ArtistProfile = () => {
   const { user, artist } = useAuth();
   const [open, setOpen] = useState(false);
   const [art, setart] = useState({});
-  
+  const { id } = useParams();
   const saveChanges = () => {
     setOpen(!open);
     //send to db
@@ -96,6 +97,9 @@ const ArtistProfile = () => {
         <div className="buttons">
           <Button onClick={() => setOpen(!open)}>Edit account</Button>
           {!open && <Button onClick={saveChanges}>Save</Button>}
+          <Link component={Button} to={`/artist_profile/${id}/DemoPage`}>
+            Go to Demo Page
+          </Link>
         </div>
       </div>
     </>

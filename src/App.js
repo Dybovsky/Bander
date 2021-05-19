@@ -15,6 +15,7 @@ import BanderNavbar from "./components/BanderNavbar";
 import UserProfile from "./components/UserProfile";
 import BasicSearch from "./components/BasicSearch";
 import AdvancedSearch from "./components/AdvancedSearch";
+import DemoPage from "./components/DemoPage";
 
 const ContextApp = () => {
   return (
@@ -33,6 +34,9 @@ const ContextApp = () => {
           </Route>
           <Route path="/search">
             <BasicSearch />
+          </Route>
+          <Route path="/artist_profile/:id/demoPage">
+            <DemoPage />
           </Route>
           <Route path="/artist_profile/:id">
             <UserProfile />
