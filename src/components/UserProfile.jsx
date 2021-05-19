@@ -126,7 +126,11 @@ const UserProfile = () => {
               </div>
             </Collapse>
             <Button onClick={() => setOpen(!open)}>Edit account</Button>
+<<<<<<< HEAD
             <Link component={Button} to={`/userProfile/${id}/DemoPage`}>
+=======
+            <Link component={Button} to={`/artist_profile/${id}/DemoPage`}>
+>>>>>>> ed2d010969131771be4ca725163c261e79f347c1
               Go to Demo Page
             </Link>
           </Form>
