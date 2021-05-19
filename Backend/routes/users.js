@@ -43,12 +43,12 @@ router.post("/sessionLogin", async (req, res) => {
   res.send(userData.data());
 });
 
-module.exports = router;
-
-router.post("/sessionSignUp", async (req, res) => {
-  // const idToken = req.body.idToken
-  // const verify = await admin.auth().verifyIdToken(idToken)
-  res.send({ msg: "Signed up successfully" });
+router.post("/getInfo", async (req, res) => {
+  const { id } = req.body;
+  const getArtInfo = (
+    await admin.firestore().collection("artist").doc(id).get()
+  ).data();
+  res.send(getArtInfo);
 });
 
 module.exports = router;

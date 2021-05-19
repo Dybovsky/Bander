@@ -1,23 +1,27 @@
-import { useEffect, useState } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { useState } from "react";
+import { ProgressBar, Form, Button, Card } from "react-bootstrap";
+import { SignUp } from "../firebase/firebase.auth";
+import { useAuth } from "../context/auth";
+import { uploadCloud, userUpdate } from "../firebase/firebase.api";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
-import { SignUp } from "../firebase/firebase.auth";
 import AnimateHeight from "react-animate-height";
-import { useAuth } from "../context/auth";
 
 export default function SignUpForm() {
+  const [avatar, setAvatar] = useState(null);
   const [validated, setValidated] = useState(false);
   const [newUser, setNewUser] = useState({});
   const [venue, setvenue] = useState({});
   const [artist, setartist] = useState({});
   const [venHeight, setVenHeight] = useState(0);
   const [artHeight, setArtHeight] = useState(0);
+  const [progressBar, setProgressBar] = useState(0);
+
   const { saveToken } = useAuth();
+
   const handleChecks = (e) => {
     const checked = e.target.checked;
     const name = e.target.name;
-
     if (checked) {
       if (name === "artist") {
         setArtHeight("auto");
@@ -53,7 +57,10 @@ export default function SignUpForm() {
     if (form.checkValidity()) {
       setValidated(true);
       const login = await SignUp({ newUser, artist, venue });
-      saveToken(login)
+      const upload = await uploadCloud(avatar, setAvatar, setProgressBar);
+      login.curUser.photoURL = upload;
+      userUpdate(login);
+      saveToken(login);
     } else {
       //not filled
       setValidated(false);
@@ -133,6 +140,25 @@ export default function SignUpForm() {
             id="bio"
             placeholder="Tell us about yourself..."
             onChange={handleInput}
+          />
+          <Form.File custom>
+            <Form.File.Input
+              name="img"
+              isValid={newUser.img}
+              onChange={(e) => {
+                setAvatar(e.target.files[0]);
+              }}
+            />
+            <Form.File.Label data-browse="Button text">
+              Profile Picture
+            </Form.File.Label>
+          </Form.File>
+          <ProgressBar
+            animated
+            striped
+            variant="success"
+            now={progressBar}
+            label={`${progressBar}%`}
           />
         </Form.Group>
         <div className="d-flex justify-content-around">

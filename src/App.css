@@ -25,10 +25,7 @@ body {
   font-family: "Noto Sans JP";
 }
 
-h1 {
-  color: #111;
-  font-family: "Open Sans", sans-serif;
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 32px;
+.resizeAvatar{
+  height: auto;
+  width: 300px;
 }

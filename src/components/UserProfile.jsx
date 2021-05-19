@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/auth";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Card, Collapse } from "react-bootstrap";
+import axios from "axios";
+import { useParams } from "react-router";
+import { uploadCloud, userUpdate } from "../firebase/firebase.api";
 
 const UserProfile = () => {
-  const { user } = useAuth();
-  const [open, setOpen] = useState(false);
-  const [artist, setartist] = useState({})
-  
-  const saveChanges = () => {
-    setOpen(!open);
-    //send to db
+  const { user, baseURL, saveToken, token } = useAuth();
+  const { id } = useParams();
+  const [open, setOpen] = useState(true);
+  const [artist, setartist] = useState({});
+  const [avatar, setAvatar] = useState(null);
+
+  const saveChanges = async () => {
+    const photoURL = await uploadCloud(avatar, setAvatar, false);
+    const curUser = { ...user };
+    curUser.photoURL = photoURL;
+    userUpdate({ curUser });
+    saveToken({token, curUser})
   };
+
+  useEffect(async () => {
+    const getArtist = await axios.post(baseURL + "/users/getInfo", { id });
+    setartist(getArtist.data);
+  }, []);
 
   const updateUser = (e) => {
     const value = e.target.value;
@@ -21,84 +34,101 @@ const UserProfile = () => {
   };
 
   return (
-    <>
-      <h1>User profile</h1>
-      <div className="back">
-        <div>
-          <img src={artist.image} alt="avatar" className="avatar" />
-          <Form className="form">
+    <div className="d-flex justify-content-center">
+      <Card border="dark" className="w-50 mt-3">
+        <Card.Img
+          src={user.photoURL}
+          alt="avatar"
+          className="resizeAvatar mx-auto img-fluid img-thumbnail"
+        />
+        <Card.Body>
+          <Card.Title>User profile</Card.Title>
+          <Form className="d-flex flex-column gap-3">
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.firstName}
+              defaultValue={user.fName}
               onChange={updateUser}
               name="firstName"
             ></Form.Control>
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.lastName}
+              defaultValue={user.lName}
               onChange={updateUser}
               name="lastName"
             ></Form.Control>
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.nickname}
+              defaultValue={artist.stageName}
               onChange={updateUser}
               name="nickname"
             ></Form.Control>
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.email}
+              defaultValue={user.email}
               onChange={updateUser}
               name="email"
             ></Form.Control>
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.instrument}
+              defaultValue={artist.instruments}
               onChange={updateUser}
               name="instrument"
             ></Form.Control>
             <Form.Control
               readOnly={open}
               plaintext={open}
-              defaultValue={artist.genre}
+              defaultValue={artist.genres}
               onChange={updateUser}
               name="genre"
             ></Form.Control>
-            {!open && (
-              <Form.Control
-                readOnly={open}
-                plaintext={open}
-                type="password"
-                placeholder="Password"
-                defaultValue=""
-                onChange={updateUser}
-                name="password"
-              ></Form.Control>
-            )}
-            {!open && (
-              <Form.Control
-                readOnly={open}
-                plaintext={open}
-                type="password"
-                placeholder="Password check"
-                defaultValue=""
-                onChange={updateUser}
-                name="passwordCheck"
-              ></Form.Control>
-            )}
+            <Collapse in={!open}>
+              <div id="example-collapse-text" className="d-flex gap-2">
+                {!open && (
+                  <Form.File custom>
+                    <Form.File.Input
+                      name="img"
+                      onChange={(e) => {
+                        setAvatar(e.target.files[0]);
+                      }}
+                    />
+                    <Form.File.Label data-browse="Button text">
+                      Profile Picture
+                    </Form.File.Label>
+                  </Form.File>
+                )}
+                {!open && (
+                  <Form.Control
+                    readOnly={open}
+                    plaintext={open}
+                    type="password"
+                    placeholder="Password"
+                    onChange={updateUser}
+                    name="pwd"
+                  ></Form.Control>
+                )}
+                {!open && (
+                  <Form.Control
+                    readOnly={open}
+                    plaintext={open}
+                    type="password"
+                    placeholder="Password check"
+                    onChange={updateUser}
+                    name="pwdCon"
+                  ></Form.Control>
+                )}
+                {!open && <Button onClick={saveChanges}>Save</Button>}
+              </div>
+            </Collapse>
+            <Button onClick={() => setOpen(!open)}>Edit account</Button>
           </Form>
-        </div>
-        <div className="buttons">
-          <Button onClick={() => setOpen(!open)}>Edit account</Button>
-          {!open && <Button onClick={saveChanges}>Save</Button>}
-        </div>
-      </div>
-    </>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 

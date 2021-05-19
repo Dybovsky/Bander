@@ -1,3 +1,4 @@
+import firebaseApp from "./firebase/firebase.config"; // need it to initialize firebase so the google authenctication will work
 import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
