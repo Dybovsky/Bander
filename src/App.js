@@ -13,6 +13,8 @@ import AuthProvider from "./context/auth";
 import BarProfile from "./components/BarProfile";
 import BanderNavbar from "./components/BanderNavbar";
 import UserProfile from "./components/UserProfile";
+import BasicSearch from "./components/BasicSearch";
+import AdvancedSearch from "./components/AdvancedSearch";
 
 const ContextApp = () => {
   return (
@@ -25,6 +27,12 @@ const ContextApp = () => {
           </Route>
           <Route path="/home">
             <CentralHub />
+          </Route>
+          <Route path="/search/advanced">
+            <AdvancedSearch />
+          </Route>
+          <Route path="/search">
+            <BasicSearch />
           </Route>
           <Route path="/artist_profile/:id">
             <UserProfile />

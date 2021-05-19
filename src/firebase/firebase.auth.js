@@ -11,7 +11,6 @@ export async function signInEmail(email, password) {
   const verify = await axios.post(baseURL + "/users/sessionLogin", { token });
   fireAuth.signOut();
   const returnObj = { curUser: verify.data, token };
-  console.log(returnObj);
   return returnObj;
 }
 
