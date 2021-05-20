@@ -17,6 +17,7 @@ export default function SignUpForm() {
   const [venHeight, setVenHeight] = useState(0);
   const [artHeight, setArtHeight] = useState(0);
   const [progressBar, setProgressBar] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { saveToken } = useAuth();
 
@@ -56,12 +57,14 @@ export default function SignUpForm() {
     const form = e.currentTarget;
     //filled
     if (form.checkValidity()) {
+      setLoading(true)
       setValidated(true);
       const login = await SignUp({ newUser, artist, venue });
       const upload = await uploadCloud(avatar, setAvatar, setProgressBar);
       login.curUser.photoURL = upload;
       userUpdate(login);
       saveToken(login);
+      setLoading(false)
     } else {
       //not filled
       setValidated(false);
@@ -193,6 +196,9 @@ export default function SignUpForm() {
           <Button className="block" type="submit">
             Submit
           </Button>
+          {loading && <div class="spinner-border text-danger" role="status">
+  
+  </div>}
         </div>
       </Form>
     </>

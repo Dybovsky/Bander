@@ -5,14 +5,17 @@ import { signInEmail } from "../firebase/firebase.auth";
 
 export default function SignInEmailModal() {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [pwd, setpwd] = useState(null);
   const [mail, setmail] = useState(null);
   const { saveToken } = useAuth();
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     const userInfo = await signInEmail(mail, pwd);
     saveToken(userInfo);
+    setLoading(false)
   };
 
   return (
@@ -44,9 +47,13 @@ export default function SignInEmailModal() {
             Log in
           </Button>
         </Form>
-        <Button className="m-1" onClick={() => setOpen(false)}>
-          close
-        </Button>
+        {loading ? 
+          <button class="btn btn-primary" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Loading...
+</button> :  <Button variant="primary" type="submit" className="mt-2" block>
+            Log in
+          </Button> } 
       </Modal>
     </>
   );
