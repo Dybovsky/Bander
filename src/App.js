@@ -18,6 +18,8 @@ import AdvancedSearch from "./components/AdvancedSearch";
 import DemoPage from "./components/DemoPage";
 import AddPost from './components/AddPost'
 
+
+
 const ContextApp = () => {
   return (
     <Router>
@@ -39,7 +41,7 @@ const ContextApp = () => {
           <Route path="/search">
             <BasicSearch />
           </Route>
-          <Route path="/userProfile/:id/demoPage">
+          <Route path="/useProfile/:id/DemoPage">
             <DemoPage />
           </Route>
           <Route path="/userProfile/:id">

@@ -6,6 +6,7 @@ import { uploadCloud, userUpdate } from "../firebase/firebase.api";
 import AddArtistInfo from "./AddArtistInfo";
 import AddVenueInfo from "./AddVenueInfo";
 import AnimateHeight from "react-animate-height";
+import signUpValidation from '../frontEndValidation/signUpValidation';
 
 export default function SignUpForm() {
   const [avatar, setAvatar] = useState(null);
@@ -16,6 +17,8 @@ export default function SignUpForm() {
   const [venHeight, setVenHeight] = useState(0);
   const [artHeight, setArtHeight] = useState(0);
   const [progressBar, setProgressBar] = useState(0);
+  const [alert, setAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState();
 
   const { saveToken } = useAuth();
 
@@ -33,9 +36,11 @@ export default function SignUpForm() {
     } else {
       if (name === "artist") {
         newUser.isArtist = false;
+        setartist({});
         setArtHeight(0);
       } else {
         newUser.isOwner = false;
+        setartist({});
         setVenHeight(0);
       }
     }
@@ -53,17 +58,29 @@ export default function SignUpForm() {
     e.stopPropagation();
     e.preventDefault();
     const form = e.currentTarget;
+    setAlert(false);
     //filled
-    if (form.checkValidity()) {
-      setValidated(true);
-      const login = await SignUp({ newUser, artist, venue });
-      const upload = await uploadCloud(avatar, setAvatar, setProgressBar);
-      login.curUser.photoURL = upload;
-      userUpdate(login);
-      saveToken(login);
+    if (signUpValidation(newUser, artist, venue, avatar)) {
+      try {
+      if (form.checkValidity()) {
+        setValidated(true);
+        const login = await SignUp({ newUser, artist, venue });
+        const upload = await uploadCloud(avatar, setAvatar, setProgressBar);
+        login.curUser.photoURL = upload;
+        userUpdate(login);
+        saveToken(login);
+      } else {
+        //not filled
+      }
+      } catch (error) {
+        const erMsg = error.message;
+        setAlert(true)
+        setAlertMsg(erMsg);
+      }
     } else {
-      //not filled
-      setValidated(false);
+      const erMsg = localStorage.getItem('msg');
+      setAlert(true)
+      setAlertMsg(erMsg);
     }
   };
 
@@ -74,6 +91,7 @@ export default function SignUpForm() {
           Please fill all the fields
         </Card>
       )}
+      {alert && <h5 color="red" className="fillAllCard"><b>{alertMsg}</b></h5>}
       <Form
         validated={validated}
         onSubmit={handleFormSubmit}
