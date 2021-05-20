@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import AnimateHeight from "react-animate-height";
 import Post from "./Post";
+import { addPost } from "../firebase/firebase.api";
 const genres = [
   "Rock",
   "Metal",
@@ -37,11 +38,19 @@ const AddPost = () => {
     });
     // console.log("offer", post);
   };
-  const onFormSubmit = (e) => {
+
+  const onFormSubmit = async (e) => {
     e.preventDefault();
-    //backend
-    // console.log(post);
+    try {
+    await addPost(post);
+    alert("Post added successfully")
+    setPost({});
+    window.history.back();
+    } catch(err){
+      alert(err.message);
+    }
   };
+
   const onConfirm = () => {
     post.genres = genresList;
     setPostHeight("auto");
@@ -68,13 +77,13 @@ const AddPost = () => {
             name="companyName"
           />
         </Form.Group> */}
-        <Form.Group>
+         <Form.Group>
           <Form.Control
             className="p-2 m-2"
             type="text"
             placeholder="Enter address "
             onChange={handleChange}
-            name="address"
+            name="location"
           />
         </Form.Group>
         <Form.Group>
@@ -86,6 +95,25 @@ const AddPost = () => {
             name="date"
           />
         </Form.Group>
+        <Form.Group>
+        <Form.Control
+              className="p-2 m-2"
+              as="select"
+              name="venType"
+              id="venType"
+              onChange={handleChange}
+            >
+              <option>Venue Type</option>
+              <option value="cafe">Cafe</option>
+              <option value="bar">Bar</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="concert">Concert</option>
+              <option value="concert">Club</option>
+              <option value="concert">Theater</option>
+              <option value="concert">Stand-up</option>
+              <option value="concert">Open Space</option>
+            </Form.Control>
+            </Form.Group>
         <Form.Group>
           <Form.Control
             className="p-2 m-2"

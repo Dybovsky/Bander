@@ -67,6 +67,10 @@ export async function getVenueById(id) {
   return getVenue.data;
 }
 
+export async function addPost(postObj) {
+  await firebase.firestore().collection("posts").add(postObj);
+}
+
 export async function getDemos(id) {
   try {
     const getDemos = await firebase.storage().ref().child("/").listAll();
@@ -80,24 +84,27 @@ export async function searchAdvance(searchObj) {
   const { location, date, venType, genre } = searchObj;
   const result = await firebase
     .firestore()
-    .collection("events")
+    .collection("posts")
     .where("location", "==", location)
     .where("date", "==", date)
     .where("venType", "==", venType)
-    .where("genre", "==", genre)
-    .get()
-    .limit(3);
-  return result.querySnapshot;
+    // .where("genre", "==", genre)
+    .get();
+    return result.docs;
 }
 
 export async function searchBasic(searchObj) {
   const { venType, genre } = searchObj;
-  const result = await firebase
+  const result = [];
+  await firebase
     .firestore()
-    .collection("events")
+    .collection("posts")
     .where("venType", "==", venType)
-    .where("genre", "==", genre)
-    .get()
-    .limit(3);
-  return result.querySnapshot;
+    // .where("genres", "==", [genre])
+    .get().then((querySnapshot) =>{
+      querySnapshot.forEach((doc) => {
+        result.push(doc)
+      });
+    });
+    return result;
 }

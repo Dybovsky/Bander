@@ -23,6 +23,7 @@ const BasicSearch = () => {
     e.preventDefault();
     try {
       const result = await searchBasic(data);
+      console.log(result);
       setEvents(result);
     } catch (err) {
       alert(err.message);
@@ -37,9 +38,11 @@ const BasicSearch = () => {
     <>
    <div className="card h-75 shadow rounded w-50 m-auto mt-5 text-white bg-dark">
           <h2 className="m-3 align-self-center"><u>Search Page</u></h2>
+          <div className="d-flex justify-content-around">
           <Link className="btn btn-primary w-25 m-3 align-self-center" to="/search/advanced">Advanced Search</Link>
+          {events && <button className="btn btn-primary m-5 justify-self-center" onClick={handleClearEvents}>Back to Search</button>}
+          </div>
     </div>
-    {events && <button className="btn btn-primary m-5 justify-self-center" onClick={handleClearEvents}>Back to Search</button>}
       {!events && <div className="card h-50 shadow rounded w-50 m-auto mt-5 text-white bg-dark">
       <Form
           onSubmit={handleFormSubmit}
@@ -89,7 +92,10 @@ const BasicSearch = () => {
           </Form.Group>
         </Form>
       </div>}
-      <div>{events && <EventsList eventArray={events} />}</div>
+      <div>
+        {events && <EventsList eventArray={events} />}
+        {events && !events[0] && <h2 className=" m-3 align-self-center card h-75 shadow rounded w-50 m-auto mt-5 text-white bg-dark text-center">No Results for your search</h2>}
+      </div>
     </>
   );
 };

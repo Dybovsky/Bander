@@ -22,7 +22,6 @@ const BanderNavbar = () => {
           Home
         </Link>
         <div className="mx-2 d-flex justify-content-around gap-3">
-          <Link component={Button} to="/search">Search</Link>
           {token && <Link component={Button} to={`/addPost/`}>Create Post</Link>}
           {token && <Link component={Button} to={`/userProfile/${user.uid}/`}>Profile</Link>}
           {token && <Link component={Button} to="/search">Search</Link>}

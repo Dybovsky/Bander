@@ -17,6 +17,7 @@ import BasicSearch from "./components/BasicSearch";
 import AdvancedSearch from "./components/AdvancedSearch";
 import DemoPage from "./components/DemoPage";
 import AddPost from "./components/AddPost";
+import Footer from "./components/Footer";
 
 const ContextApp = () => {
   return (
@@ -50,6 +51,7 @@ const ContextApp = () => {
           </Route>
         </Switch>
       </div>
+        <Footer />
     </Router>
   );
 };
