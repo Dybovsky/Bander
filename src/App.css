@@ -3,7 +3,7 @@
 body {
   background-image: url("https://res.cloudinary.com/urielnaiman/image/upload/v1620808116/m-4_M8uIfPEZw-unsplash_na8ph1.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 
 .formMarg > * > * {
@@ -80,12 +80,12 @@ body {
   border-radius: 5px;
   padding: 20px;
 }
-.main input,
-.main textarea,
+/* .main input, */
+/* .main textarea,
 .main select {
   padding: 10px;
   margin: 10px;
-}
+} */
 .postMain {
   background-color: aliceblue;
 }

@@ -16,9 +16,7 @@ import UserProfile from "./components/UserProfile";
 import BasicSearch from "./components/BasicSearch";
 import AdvancedSearch from "./components/AdvancedSearch";
 import DemoPage from "./components/DemoPage";
-import AddPost from './components/AddPost'
-
-
+import AddPost from "./components/AddPost";
 
 const ContextApp = () => {
   return (
@@ -26,6 +24,9 @@ const ContextApp = () => {
       <div className="Background">
         <BanderNavbar />
         <Switch>
+          <Route path="/barProfile">
+            <BarProfile />
+          </Route>
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
@@ -41,14 +42,11 @@ const ContextApp = () => {
           <Route path="/search">
             <BasicSearch />
           </Route>
-          <Route path="/userProfile/:id/demoPage">
+          <Route path="/useProfile/:id/DemoPage">
             <DemoPage />
           </Route>
           <Route path="/userProfile/:id">
             <UserProfile />
-          </Route>
-          <Route path="/barProfile/:id">
-            <BarProfile />
           </Route>
         </Switch>
       </div>

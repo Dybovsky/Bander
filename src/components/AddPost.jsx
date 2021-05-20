@@ -12,7 +12,7 @@ const genres = [
   "Traditional",
   "Rap",
 ];
-const venues = ["Bar", "Club", "Theater", "StandUp", "Dance Bar", "Cafe", "Concert", "Restaurant"]
+// const venues = ["Bar", "Club", "Theater", "StandUp", "Dance Bar", "Cafe", "Concert", "Restaurant"]
 
 const AddPost = () => {
   const [post, setPost] = useState({});
@@ -35,12 +35,12 @@ const AddPost = () => {
       ...post,
       [e.target.name]: e.target.value,
     });
-    console.log("offer", post);
+    // console.log("offer", post);
   };
   const onFormSubmit = (e) => {
     e.preventDefault();
     //backend
-    console.log(post);
+    // console.log(post);
   };
   const onConfirm = () => {
     post.genres = genresList;
@@ -52,7 +52,7 @@ const AddPost = () => {
         <Form.Label>
           <h1>Fill up all details about your job offer</h1>
         </Form.Label>
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Label>Chose a venue</Form.Label>
           <Form.Control as="select" onChange={handleChange} name="venue">
             {venues.map((venue) => {
@@ -67,9 +67,10 @@ const AddPost = () => {
             onChange={handleChange}
             name="companyName"
           />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group>
           <Form.Control
+            className="p-2 m-2"
             type="text"
             placeholder="Enter address "
             onChange={handleChange}
@@ -78,6 +79,7 @@ const AddPost = () => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            className="p-2 m-2"
             type="date"
             placeholder="Choose a date"
             onChange={handleChange}
@@ -86,14 +88,14 @@ const AddPost = () => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            className="p-2 m-2"
             as="textarea"
             placeholder="What are you looking for?"
             onChange={handleChange}
             name="query"
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Choose genre</Form.Label>
+        <Form.Group className="d-flex flex-wrap">
           {genres.map((genre) => (
             <div key={genre}>
               <Form.Check
