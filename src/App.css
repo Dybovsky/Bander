@@ -80,12 +80,12 @@ body {
   border-radius: 5px;
   padding: 20px;
 }
-.main input,
-.main textarea,
+/* .main input, */
+/* .main textarea,
 .main select {
   padding: 10px;
   margin: 10px;
-}
+} */
 .postMain {
   background-color: aliceblue;
 }
