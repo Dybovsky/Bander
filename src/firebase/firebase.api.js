@@ -1,4 +1,7 @@
+import axios from "axios";
 import firebase from "firebase/app";
+
+const baseURL = "http://localhost:5050";
 
 export async function uploadCloud(avatar, userCreator, cb) {
   try {
@@ -48,4 +51,28 @@ export async function uploadCloud(avatar, userCreator, cb) {
 export async function userUpdate(userObj) {
   const { curUser } = userObj;
   firebase.firestore().collection("users").doc(curUser.uid).update(curUser);
+}
+
+export async function getUserById(id) {
+  const getUser = await axios.post(baseURL + "/users/getInfo", { id });
+  return getUser.data;
+}
+
+export async function getUserArtistById(id) {
+  const getArtist = await axios.post(baseURL + "/users/getArtist", { id });
+  return getArtist.data;
+}
+
+export async function getVenueById(id) {
+  const getVenue = await axios.post(baseURL + "/users/getVenue", { id });
+  return getVenue.data;
+}
+
+export async function getDemos(id) {
+  try{
+    const getDemos = await firebase.storage().ref().child('/').listAll()
+    console.log(getDemos)
+  }catch(err){
+    console.log(err)
+  }
 }

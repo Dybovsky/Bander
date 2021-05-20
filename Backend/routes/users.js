@@ -5,6 +5,10 @@ const serviceAccount = require("../serviceAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
+const demosBucket = admin.storage().bucket("bander-270a4.appspot.com");
+const profilePicsBucket = admin
+  .storage()
+  .bucket("bander-270a4.appspot.com/ProfilePics");
 
 router.post("/createUser", async (req, res) => {
   const { newUser, artist, venue } = req.body;
@@ -45,10 +49,62 @@ router.post("/sessionLogin", async (req, res) => {
 
 router.post("/getInfo", async (req, res) => {
   const { id } = req.body;
-  const getArtInfo = (
-    await admin.firestore().collection("artist").doc(id).get()
-  ).data();
-  res.send(getArtInfo);
+  try {
+    const getUserInfo = (
+      await admin.firestore().collection("users").doc(id).get()
+    ).data();
+    res.send(getUserInfo);
+  } catch (err) {
+    res.send(err);
+    return;
+  }
+});
+
+router.post("/getArtist", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const getArtInfo = (
+      await admin.firestore().collection("artist").doc(id).get()
+    ).data();
+    res.send(getArtInfo);
+  } catch (err) {
+    res.send(err);
+    return;
+  }
+});
+
+router.post("/getVenue", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const getVenueInfo = (
+      await admin.firestore().collection("venues").doc(id).get()
+    ).data();
+    res.send(getVenueInfo);
+  } catch (err) {
+    res.send(err);
+    return;
+  }
+});
+
+router.post("/updateInfo", async (req, res) => {
+  const { id } = req.body;
+  try {
+    await admin.firestore().collection("users").doc(id).update(curUser);
+  } catch (err) {
+    res.send(err);
+    return;
+  }
+  res.send("Updated successfully");
+});
+
+router.post("/demos", async (req, res) => {
+  const { id } = req.body;
+  try {
+    
+  } catch (err) {
+    res.send(err);
+    return;
+  }
 });
 
 module.exports = router;
