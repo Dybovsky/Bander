@@ -68,27 +68,36 @@ export async function getVenueById(id) {
 }
 
 export async function getDemos(id) {
-  try{
-    const getDemos = await firebase.storage().ref().child('/').listAll()
-    console.log(getDemos)
-  }catch(err){
-    console.log(err)
+  try {
+    const getDemos = await firebase.storage().ref().child("/").listAll();
+    console.log(getDemos);
+  } catch (err) {
+    console.log(err);
   }
 }
+
 export async function searchAdvance(searchObj) {
   const { location, date, venType, genre } = searchObj;
-  const result = await firebase.firestore().collection("events")
-            .where("location", "==", location)
-            .where("date", "==", date)
-            .where("venType", "==", venType)
-            .where("genre", "==", genre).get().limit(3);
+  const result = await firebase
+    .firestore()
+    .collection("events")
+    .where("location", "==", location)
+    .where("date", "==", date)
+    .where("venType", "==", venType)
+    .where("genre", "==", genre)
+    .get()
+    .limit(3);
   return result.querySnapshot;
 }
 
 export async function searchBasic(searchObj) {
   const { venType, genre } = searchObj;
-  const result = await firebase.firestore().collection("events")
-            .where("venType", "==", venType)
-            .where("genre", "==", genre).get().limit(3);
+  const result = await firebase
+    .firestore()
+    .collection("events")
+    .where("venType", "==", venType)
+    .where("genre", "==", genre)
+    .get()
+    .limit(3);
   return result.querySnapshot;
 }
