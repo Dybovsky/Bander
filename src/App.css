@@ -3,7 +3,7 @@
 body {
   background-image: url("https://res.cloudinary.com/urielnaiman/image/upload/v1620808116/m-4_M8uIfPEZw-unsplash_na8ph1.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 
 .formMarg > * > * {
