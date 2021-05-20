@@ -37,16 +37,18 @@ const AdvancedSearch = () => {
   
   return (
     <>
+    <div className="card h-75 shadow rounded w-50 m-auto mt-5 text-white bg-dark">
+          <h2 className="m-3 align-self-center"><u>Search Page</u></h2>
+          <Link className="btn btn-primary w-25 m-3 align-self-center" to="/search">Basic Search</Link>
+    </div>
     {events && <button className="btn btn-primary m-5 justify-self-center" onClick={handleClearEvents}>Back to Search</button>}
-    {!events && <div className="card h-75 shadow rounded w-75 m-auto mt-5 text-white bg-dark">
-          <h2 className="align-self-center"><u>Search for Event</u></h2>
-          <Link className="btn btn-primary w-25 align-self-center m-1" to="/search">Basic Search</Link>
+    {!events && <div className="card h-75 shadow rounded w-50 m-auto mt-5 text-white bg-dark">
       <Form
         onSubmit={handleFormSubmit}
         className="formMarg formFont orderItems w-75 text-center align-self-center mt-5"
       >
         <Form.Group>
-        <div className="d-flex justify-content-around m-5">
+        <div className="d-flex justify-content-around m-3">
             <div className="d-flex flex-column">
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -57,15 +59,13 @@ const AdvancedSearch = () => {
                     id="location"
                     placeholder="location"
                     onChange={handleInput}
-                    className="m-1"
-                />
-                <Form.Label>Genre</Form.Label>
+                    />
+                <Form.Label className="mt-5">Genre</Form.Label>
                     <Form.Control 
                     as="select" 
                     name="genre"
                     id="genre" 
                     onChange={handleInput}
-                    className="m-1"
                     >
                         <option>Choose...</option>
                         <option value="rock">Rock</option>
@@ -77,48 +77,39 @@ const AdvancedSearch = () => {
                         <option value="traditional">Traditional</option>
                         <option value="rap">Rap</option>
                     </Form.Control>
-                <Form.Label>Venue Type</Form.Label>
+                   </div>
+            <div className="d-flex flex-column">
+                <Form.Label>Date</Form.Label>
+                    <Form.Control 
+                    type="date" 
+                    name="date"
+                    id="date" 
+                    onChange={handleInput}
+                    />
+                <Form.Label className="mt-5">Venue Type</Form.Label>
                 <Form.Control 
                     as="select" 
-                    name="venue"
-                    id="venue" 
+                    name="venType"
+                    id="venType" 
                     onChange={handleInput}
-                    className="m-1"
                     >
                         <option>Choose...</option>
-                        <option value="cafe">Cafe'</option>
+                        <option value="cafe">Cafe</option>
                         <option value="bar">Bar</option>
-                        <option value="pub">Pub</option>
                         <option value="restaurant">Restaurant</option>
                         <option value="concert">Concert</option>
+                        <option value="concert">Club</option>
+                        <option value="concert">Theater</option>
+                        <option value="concert">Stand-up</option>
+                        <option value="concert">Open Space</option>
                     </Form.Control>
-                </div>
-            <div className="d-flex flex-column">
-                <Form.Label>Dates</Form.Label>
-                <Form.Label>From</Form.Label>
-                    <Form.Control 
-                    type="date" 
-                    name="date_start"
-                    id="date_start" 
-                    onChange={handleInput}
-                    className="m-1"
-                    />
-                <Form.Label>To</Form.Label>
-                    <Form.Control 
-                    type="date" 
-                    name="date_end"
-                    id="date_end" 
-                    onChange={handleInput}
-                    className="m-1"
-                    />
-
+              </div>
+        </div>
             <div className="btnAlign">
-            <Button className="block" type="submit">
+            <Button className="block m-5" type="submit">
                 Search
             </Button>
             </div>
-            </div>
-        </div>
         </Form.Group>
       </Form>
        </div>}
